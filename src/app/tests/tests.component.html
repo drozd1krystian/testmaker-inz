@@ -1,0 +1,35 @@
+
+<div class="list-container">
+    <form [formGroup] = "testForm" novalidate>
+      <input type="text" id="search" formControlName = "search" placeholder="Szukaj" (click) = "openDropDown()" 
+        clickOutside (clickOutside)="closeDropDown()" autocomplete="off" >
+      </form>
+
+      <div class="tests-container-dropdown" *ngIf = "(showDropDown || search)">
+        <div (click)='selectValue(item.name)' *ngFor = "let item of tests | searchFilter: getSearchValue(): 'name'">
+          <span class ="test-name-dropdown">{{item.name}}</span>
+          <span class ="test-category-dropdown">{{item.Category}}</span>
+        </div>
+      </div>
+     
+    <a href="#" class ="btn btn-green">Dodaj test</a>
+    <div *ngIf="tests?.length > 0; else noItems">
+      <ul class ="collection" *ngFor = "let item of tests | searchFilter: getSearchValue(): 'name'">
+        <a href="{{item.id}}" class ="list-item">
+          <li class="collection-item" >
+            <label>Nazwa testu:</label> {{item.name}} <br>
+            <label>Przedmiot:</label> {{item.Category}} 
+          </li>
+        </a>
+      </ul>
+    </div>
+      
+    <ng-template #noItems>
+      <hr>
+      <h5>There're no tests in the list</h5>
+    </ng-template>
+</div>
+
+
+
+

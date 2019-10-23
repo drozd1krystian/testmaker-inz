@@ -1,0 +1,41 @@
+h4, ul{
+  margin: 0;
+  padding: 0;
+}
+
+h4 a {
+  color: #fff;
+}
+
+#main-header {
+  display:flex;
+  flex-direction: row;
+  height: 5rem;
+  color: #fff; 
+  align-items: center;
+  overflow: auto;
+}
+
+#main-header ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#main-header ul li {
+  align-self: center;
+}
+
+#main-header ul a {
+  display: block;
+  padding: 1.75rem;
+  color: #fff;
+  transition: background .5s ease-out;
+}
+
+#main-header ul li a:hover {
+  background: rgb(230, 54, 71);
+}

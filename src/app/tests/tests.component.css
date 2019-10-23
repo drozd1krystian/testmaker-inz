@@ -1,0 +1,65 @@
+/* List style */
+.list-container ul {
+  margin-top: 1rem;
+}
+
+.list-container ul li {
+  line-height: 2rem;
+}
+
+.collection .collection-item:hover {
+  background-color: var(--list-hover);
+  transition: background-color .8s ease-out;
+}
+.list-item {
+  color: #333;
+  font-weight: 600;
+}
+
+.list-item label {
+  font-style: italic;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+
+/* Remove input margin for Drop Down */
+form input {
+  margin-bottom: 0;
+}
+
+/* Search Drop Down */
+.tests-container-dropdown {
+  z-index: 1;
+  width: 100%;
+  max-height: 10rem;
+  background: #f4f4f4;
+  overflow-y: auto;
+  border: 1px solid var(--primary-color);
+}
+
+.tests-container-dropdown div {
+  padding: .5rem;
+  border-bottom: 1px dotted #333;
+}
+
+.tests-container-dropdown div:hover {
+  background: rgb(226, 225, 225);
+}
+
+/* Remove border from last child */
+.tests-container-dropdown div:last-child {
+  border: none;
+}
+
+.test-name-dropdown {
+  margin-left: .5rem;
+  font-weight: bold;
+}
+
+.test-category-dropdown{
+  margin-left: .5rem;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}

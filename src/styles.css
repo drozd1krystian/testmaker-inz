@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color : #26a69a;
+  --secondary-color: #C92F3F;
+  --menu-hover: rgb(230, 54, 71);
+  --comp-color: #071E22;
+  --list-hover: rgb(245, 243, 243);
+}
+
+/* Content Container*/
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+  
+}
+
+.current {
+  background-color:  var(--menu-hover);
+}
+
+header {
+  width:100%;
+  height: 5rem;
+  background: var(--secondary-color);
+}
+
+
+.btn-green:hover {
+  background-color: var(--secondary-color)
+}
+
+.btn {
+  margin-top: 1.5rem;
+}
