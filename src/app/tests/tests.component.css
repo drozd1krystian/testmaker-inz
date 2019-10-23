@@ -9,7 +9,7 @@
 
 .collection .collection-item:hover {
   background-color: var(--list-hover);
-  transition: background-color .8s ease-out;
+  transition: background-color .5s ease-out;
 }
 .list-item {
   color: #333;
@@ -33,18 +33,18 @@ form input {
   z-index: 1;
   width: 100%;
   max-height: 10rem;
-  background: #f4f4f4;
   overflow-y: auto;
   border: 1px solid var(--primary-color);
 }
 
 .tests-container-dropdown div {
   padding: .5rem;
-  border-bottom: 1px dotted #333;
+  border-bottom: 1px dotted var(--primary-color);
 }
 
 .tests-container-dropdown div:hover {
-  background: rgb(226, 225, 225);
+  background: var(--list-hover);
+  transition: background .5s ease-out;
 }
 
 /* Remove border from last child */
@@ -60,6 +60,14 @@ form input {
 .test-category-dropdown{
   margin-left: .5rem;
   font-style: italic;
+  font-weight: bold;
   font-size: 0.8rem;
-  color: var(--primary-color);
+  color: var(--primary-color);  
+}
+
+@media(max-width: 500px) {
+  .tests-container-dropdown div {
+    display: flex;
+    flex-direction: column;
+  }
 }
