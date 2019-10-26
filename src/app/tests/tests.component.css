@@ -52,19 +52,6 @@ form input {
   border: none;
 }
 
-.test-name-dropdown {
-  margin-left: .5rem;
-  font-weight: bold;
-}
-
-.test-category-dropdown{
-  margin-left: .5rem;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 0.8rem;
-  color: var(--primary-color);  
-}
-
 @media(max-width: 500px) {
   .tests-container-dropdown div {
     display: flex;

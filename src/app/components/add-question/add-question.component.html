@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="card-content">
+      <span class ="card-title">Dodaj pytanie</span>
+      <form (ngSubmit) = "onSubmit()" class ="col s6">
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="textarea1" name ="question" class="materialize-textarea validate" [(ngModel)]="question.question" required="" aria-required="true"></textarea>
+            <label>Tresc</label>
+          </div>
+          <div class="input-field col s6">
+            <textarea id="textarea1" name ="answerA" class="materialize-textarea" [(ngModel)]="question.answerA"></textarea>
+          <label>Odp A.</label>
+          </div>
+          <div class="input-field col s6">
+            <textarea id="textarea1" name ="answerB" class="materialize-textarea" [(ngModel)]="question.answerB"></textarea>
+            <label>Odp B.</label>
+          </div>
+          <div class="input-field col s6">
+            <textarea id="textarea1" name ="answerC" class="materialize-textarea" [(ngModel)]="question.answerC"></textarea>
+            <label>Odp C.</label>
+          </div>
+          <div class="input-field col s6">
+              <textarea id="textarea1" name ="answerD" class="materialize-textarea" [(ngModel)]="question.answerD"></textarea>
+            <label>Odp D.</label>
+          </div>
+          <div class="input-field col s12">
+              <input type ="text" name ="correct" [(ngModel)]="question.correct" class = "validate" required="" aria-required="true">
+            <label>Prawidłowa odp.</label>
+            <div>
+              <p>Proszę podać prawidłową odpowiedź w tym formacie: <span>A.</span> lub <span>B.</span> itp.</p>
+            </div>
+          </div>
+          <div class ="input=field col s12">
+            <button type ="submit" value = "Dodaj" class ="btn"><i class="material-icons left">add</i>Dodaj </button>
+            <a class="btn cancel" (click) = "hideForm()"><i class="material-icons left">cancel</i>Anuluj</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

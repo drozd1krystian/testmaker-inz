@@ -7,18 +7,18 @@
 
       <div class="tests-container-dropdown" *ngIf = "(showDropDown || search)">
         <div (click)='selectValue(item.name)' *ngFor = "let item of tests | searchFilter: getSearchValue(): 'name'">
-          <span class ="test-name-dropdown">{{item.name}}</span>
-          <span class ="test-category-dropdown">{{item.Category}}</span>
+          <span class ="text-bold">{{item.name}}</span>
+          <span class ="test-label">{{item.Category}}</span>
         </div>
       </div>
      
     <a href="#" class ="btn btn-green">Dodaj test</a>
     <div *ngIf="tests?.length > 0; else noItems">
       <ul class ="collection" *ngFor = "let item of tests | searchFilter: getSearchValue(): 'name'">
-        <a href="{{item.id}}" class ="list-item">
+        <a [routerLink]="['/test', item.id]" class ="list-item">
           <li class="collection-item" >
-            <label>Nazwa testu:</label> {{item.name}} <br>
-            <label>Przedmiot:</label> {{item.Category}} 
+            <span class ="test-label">Nazwa testu:</span> {{item.name}} <br>
+            <span class ="test-label">Przedmiot:</span> {{item.Category}} 
           </li>
         </a>
       </ul>
@@ -26,7 +26,7 @@
       
     <ng-template #noItems>
       <hr>
-      <h5>There're no tests in the list</h5>
+      <h5>Brak testów!</h5>
     </ng-template>
 </div>
 

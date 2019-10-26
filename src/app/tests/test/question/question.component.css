@@ -1,0 +1,14 @@
+p {
+  white-space: pre-wrap;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.move-down {
+  margin-left: 1rem;
+  margin-top: .3rem;
+}
+
+span {
+  color: #333;
+  font-size: 1.1rem;
+}
