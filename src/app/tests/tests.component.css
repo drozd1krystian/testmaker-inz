@@ -40,6 +40,7 @@ form input {
 .tests-container-dropdown div {
   padding: .5rem;
   border-bottom: 1px dotted var(--primary-color);
+  cursor: pointer !important;
 }
 
 .tests-container-dropdown div:hover {

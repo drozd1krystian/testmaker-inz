@@ -14,15 +14,19 @@ import { TestsComponent } from './tests/tests.component';
 import { TestItemService } from './services/test-item.service';
 import { HeaderComponent } from './header/header.component';
 
-// Listener to close dropdown menu if clicked outside of dropdown
+// Listener to close dropdown menu if clicked outside of dropdown - directive
 import { ClickOutsideDirective } from './shared/dropdown.directive';
+
+// Scroll to element directive
+import {ScrollToDirective} from './shared/scroll.directive';
+
 // Filter for list of test to search by 'search value'
 import { SearchFilterPipe } from './shared/filter-pipe';
 import { TestComponent } from './tests/test/test.component';
 import { QuestionComponent } from './tests/test/question/question.component';
 
 //Routring
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Scroll } from '@angular/router';
 import { AddQuestionComponent } from './components/add-question/add-question.component';
 
 const appRoutes: Routes = [
@@ -36,6 +40,7 @@ const appRoutes: Routes = [
     TestsComponent,
     HeaderComponent,
     ClickOutsideDirective,
+    ScrollToDirective,
     SearchFilterPipe,
     TestComponent,
     QuestionComponent,

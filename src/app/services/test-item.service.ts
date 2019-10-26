@@ -37,5 +37,9 @@ export class TestItemService {
     this.testsCollection.doc(testId).collection('Questions').add(question);
   }
 
-  
+  updateItem(testId, questionId, question){
+    console.log(testId, question);
+    this.testsCollection.doc(testId).collection('Questions').doc(questionId).update(question);
+  }
+
 }

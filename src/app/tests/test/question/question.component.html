@@ -1,12 +1,57 @@
-<p>{{qNr}}. {{question}}</p>
+<!-- Normal view -->
+<div *ngIf = "!editState">
+  <form class="form-inline">
+    <span><a class ="secondary-content"><i (click) = "toggleEditState()" class ="fa fa-pencil"></i></a> {{qNr}}. {{question}} </span>
+    <ul>
+      <li *ngFor = "let answer of answers">
+          <label>
+            <input class="with-gap move-down" [(ngModel)]="correct" name="correct-answer" value="{{answer | slice : 0 : 2 }}" type="radio"  [checked]="checkIfCorrect(answer)" [attr.disabled] = "editState" />
+            <span class ="answer"> {{answer}} </span>
+          </label>
+      </li>
+    </ul>
+  </form>
+</div>
 
-<form class="form-inline">
-  <ul>
-    <li *ngFor = "let answer of answers">
-      <label>
-        <input class="with-gap move-down" [(ngModel)]="correct" name="correct-answer" value="{{answer | slice : 0 : 2 }}" type="radio"  [checked]="checkIfCorrect(answer)" [attr.disabled] = "edit" />
-        <span> {{answer}} </span>
-      </label>  
-    </li>
-  </ul>
-</form>
+<!-- Edit question view -->
+<div *ngIf = "editState">
+  <div class="card" >
+    <div class="card-content">
+      <span class ="card-title">
+        Edytuj pytanie
+        <a class ="secondary-content"><i (click) = "toggleEditState()" class ="fa fa-pencil"></i></a>
+      </span>
+      <form (ngSubmit) = "onSubmit()" class ="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="textarea1" name ="question" class="materialize-textarea validate" [(ngModel)]="question" required="" aria-required="true"  ></textarea>
+          </div>
+          <div class="input-field col s12">
+            <ul>
+              <li *ngFor = "let answer of answers;let i = index;trackBy:indexTracker">
+                <div class ="col s12 ">
+                  <label class ="edit-mode">
+                    <input class="with-gap move-down" [(ngModel)]="correct" name="correct-{{i}}" value="{{answers[i] | slice : 0 : 2 }}" type="radio"  [checked]="checkIfCorrect(answer)"/> <span class = "input-answers">
+                      <textarea id="textarea" name ="answer-{{i}}" class="materialize-textarea" [(ngModel)]="answers[i]"></textarea>
+                    </span>
+                  </label> 
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class ="input=field col s12 buttons">
+            <button type ="submit" value = "Dodaj" class ="btn green "><i class="material-icons left">add</i>Edytuj</button>
+            <a class="btn cancel" (click) = "toggleEditState()"><i class="material-icons left">cancel</i>Anuluj</a>
+          </div>   
+        </div>  
+      </form>
+    </div>
+    </div>
+</div>
+
+<ng-container *ngIf="showError">
+    <div class="alert">
+        <span class="closebtn" (click) = "showErrorBox()">&times;</span>
+        Odpowiedzi muszą być w formacie: np. <strong>A. nie skompiluje się </strong>  lub  <strong>B. 5</strong> itp.
+      </div>
+</ng-container>
