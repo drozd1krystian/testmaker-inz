@@ -18,6 +18,17 @@ import { HeaderComponent } from './header/header.component';
 import { ClickOutsideDirective } from './shared/dropdown.directive';
 // Filter for list of test to search by 'search value'
 import { SearchFilterPipe } from './shared/filter-pipe';
+import { TestComponent } from './tests/test/test.component';
+import { QuestionComponent } from './tests/test/question/question.component';
+
+//Routring
+import { RouterModule, Routes } from '@angular/router';
+import { AddQuestionComponent } from './components/add-question/add-question.component';
+
+const appRoutes: Routes = [
+  {path: 'test/:id', component: TestComponent},
+  {path: '', component: TestsComponent},
+];
 
 @NgModule({
   declarations: [
@@ -26,6 +37,9 @@ import { SearchFilterPipe } from './shared/filter-pipe';
     HeaderComponent,
     ClickOutsideDirective,
     SearchFilterPipe,
+    TestComponent,
+    QuestionComponent,
+    AddQuestionComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +49,8 @@ import { SearchFilterPipe } from './shared/filter-pipe';
     AngularFireDatabaseModule,
 
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [TestItemService],
   bootstrap: [AppComponent]

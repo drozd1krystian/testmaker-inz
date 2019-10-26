@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  flex-direction: row;
+}
+
+a {
+  margin: 1rem 0;
+}
+
+@media(max-width: 500px) {
+  .header div {
+    display: flex;
+    flex-direction: column;
+  }
+}

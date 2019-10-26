@@ -1,0 +1,39 @@
+<div class="header">
+  <div>
+      <span class ="test-label text-bold bigger-label">Nazwa testu:</span> <span class ="text-bold    bigger-label">{{singleTest?.name}}</span>
+      <span class ="test-label text-bold bigger-label">Przedmiot:</span> <span class ="text-bold bigger-label">{{singleTest?.Category}}</span> 
+  </div>
+</div>
+
+<div class="card">
+    <div class="card-content">
+      <span class ="card-title">Stwórz test</span>
+      <form (ngSubmit) = "onSubmit()" class ="col s6">
+        <div class="row">
+          <div class="input-field col s12">
+              <input type ="text" name ="yearbook" [(ngModel)]="yearbook" class = "validate" required="" aria-required="true">
+            <label>Rocznik</label>
+          </div>
+          <div class="input-field col s12">
+            <input type ="text" name ="group" [(ngModel)]="group" class = "validate" required="" aria-required="true">
+            <label>Grupa</label>
+          </div>
+          <div class ="input=field col s6">
+            <input type ="submit" value = "Stwórz" class ="btn">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<div class = "question-container">
+  <ul class = "collection">
+    <li *ngFor = "let item of questions; let i = index;" class ="collection-item">
+      <app-question [testId] = "doc_id" [questionId] = "item.id" [correct] = "item.correct" [question] ="item.question" [answers] = "item.answers" [qNr] = "i+1"></app-question>
+    </li>
+  </ul>
+  <a class="btn-floating btn-large waves-effect waves-light green" (click) = "toggleForm()"><i class="material-icons">add</i></a>
+  
+  <app-add-question [testId] = "doc_id" *ngIf = "show"></app-add-question>
+</div>
+

@@ -1,0 +1,12 @@
+<p>{{qNr}}. {{question}}</p>
+
+<form class="form-inline">
+  <ul>
+    <li *ngFor = "let answer of answers">
+      <label>
+        <input class="with-gap move-down" [(ngModel)]="correct" name="correct-answer" value="{{answer | slice : 0 : 2 }}" type="radio"  [checked]="checkIfCorrect(answer)" [attr.disabled] = "edit" />
+        <span> {{answer}} </span>
+      </label>  
+    </li>
+  </ul>
+</form>
