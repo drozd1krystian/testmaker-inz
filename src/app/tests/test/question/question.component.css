@@ -1,4 +1,5 @@
-p {
+/* Add pre-wrap so it respects line breaks */
+form span:first-child {
   white-space: pre-wrap;
   font-size: 1.1rem;
   font-weight: bold;
@@ -8,7 +9,43 @@ p {
   margin-top: .3rem;
 }
 
-span {
-  color: #333;
+label .answer {
+  color: #333 !important;
   font-size: 1.1rem;
+}
+
+/* Make inputs 100% width (span by deafult is too small) */
+.input-answers {
+  width:100%;
+}
+
+/* Move radio button to match input */
+.edit-mode span::before, .edit-mode span::after {
+  margin-top: 1rem;
+}
+
+
+
+/* The alert message box */
+.alert {
+  padding: 1.3rem;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 1rem;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 1rem;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 1.5rem;
+  line-height: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
 }

@@ -6,12 +6,3 @@ p {
 p span {
   font-weight: bold;
 }
-
-.cancel {
-  margin-left: 2rem;
-  background: #ff6d00;
-}
-
-a:hover {
-  background-color: #ffab40; 
-}

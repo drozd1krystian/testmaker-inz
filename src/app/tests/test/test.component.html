@@ -19,7 +19,7 @@
             <label>Grupa</label>
           </div>
           <div class ="input=field col s6">
-            <input type ="submit" value = "Stwórz" class ="btn">
+            <input type ="submit" value = "Stwórz" class ="btn btn-make">
           </div>
         </div>
       </form>
@@ -34,6 +34,6 @@
   </ul>
   <a class="btn-floating btn-large waves-effect waves-light green" (click) = "toggleForm()"><i class="material-icons">add</i></a>
   
-  <app-add-question [testId] = "doc_id" *ngIf = "show"></app-add-question>
+  <app-add-question [testId] = "doc_id" *ngIf = "show" scrollTo></app-add-question>
 </div>
 
