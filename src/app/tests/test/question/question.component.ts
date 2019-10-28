@@ -17,18 +17,28 @@ export class QuestionComponent implements OnInit {
   @Input() qNr;
 
   // Variables
-
   // Edit question state
   editState = false;
   goodAnswers = true;
   answersSubstring = ['A.','B.','C.','D.'];
   showError = false;
+  editQuestion: string;
+  editAnswers: String[];
+  editCorrect: string;
+
+  // Something changed in question?
+  changed = false;
 
   constructor(private testService: TestItemService) { }
 
   ngOnInit() {
-    this.question = this.question.replace(/[.*+?^${}()|[\]\\]n/g, '\n'); 
-    this.answers.forEach(el => el.replace(/[.*+?^${}()|[\]\\]n/g, '\n'))
+    //this.question = this.question.replace(/[.*+?^${}()|[\]\\]n/g, '\n'); 
+   // this.answers.forEach(el => el.replace(/[.*+?^${}()|[\]\\]n/g, '\n'))
+
+    this.editQuestion = this.question;
+    this.editCorrect = this.correct;
+    this.editAnswers = [...this.answers];
+
   }
 
   checkIfCorrect(answer) {
@@ -42,6 +52,12 @@ export class QuestionComponent implements OnInit {
 
   toggleEditState() {
     this.editState = !this.editState;
+    this.showError = false;
+
+    //Reset the values in editState
+    this.editQuestion = this.question;
+    this.editAnswers = [...this.answers];
+    this.editCorrect = this.correct;
   }
 
   // Submit change in question
@@ -49,16 +65,16 @@ export class QuestionComponent implements OnInit {
 
     this.checkAnswers();
     
-    if(this.goodAnswers) {
+    if(this.goodAnswers && this.changed) {
       let question = {
-        question: this.question,
-        correct: this.correct,
-        answers: this.answers
+        question: this.editQuestion,
+        correct: this.editCorrect,
+        answers: this.editAnswers
       }
       this.testService.updateItem(this.testId, this.questionId, question);
       this.toggleEditState();
     }
-    else {
+    else if(this.changed) {
       this.showError = true;
       this.goodAnswers = true;
     }
@@ -68,13 +84,25 @@ export class QuestionComponent implements OnInit {
     this.showError = !this.showError;
   }
 
+  // Check if answers starts with A. B. C. D. 
   checkAnswers() {
-    this.answers.forEach(el => {
-      if(this.answersSubstring.some(substring => el.includes(substring))) {
+    this.editAnswers.forEach((el, index) => {
+      let temp = el.slice(0,2);
+      if(temp == this.answersSubstring[index]) {
       }
       else {
         this.goodAnswers = false;
       }
+
+      if(el == this.answers[index]) {}
+      else {
+        this.changed = true;
+      }
     })
+  }
+
+
+  deleteItem() {
+    this.testService.deleteItem(this.testId, this.questionId);
   }
 }
