@@ -16,7 +16,6 @@ export class TestItemService {
 
   constructor( private firestore: AngularFirestore) {
     this.testsCollection = this.firestore.collection('Tests');
-
     this.tests = this.testsCollection.snapshotChanges();
    }
 
@@ -33,13 +32,14 @@ export class TestItemService {
   }
 
   addItem(testId, question) {
-    console.log(testId, question)
     this.testsCollection.doc(testId).collection('Questions').add(question);
   }
 
   updateItem(testId, questionId, question){
-    console.log(testId, question);
     this.testsCollection.doc(testId).collection('Questions').doc(questionId).update(question);
   }
 
+  deleteItem(testId, questionId) {
+    this.testsCollection.doc(testId).collection('Questions').doc(questionId).delete();
+  }
 }

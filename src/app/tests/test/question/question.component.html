@@ -24,15 +24,15 @@
       <form (ngSubmit) = "onSubmit()" class ="col s12">
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="textarea1" name ="question" class="materialize-textarea validate" [(ngModel)]="question" required="" aria-required="true"  ></textarea>
+            <textarea id="textarea1"  name ="question" class="materialize-textarea validate" [(ngModel)]="editQuestion" required="" aria-required="true" autoresize ></textarea>
           </div>
           <div class="input-field col s12">
             <ul>
-              <li *ngFor = "let answer of answers;let i = index;trackBy:indexTracker">
+              <li *ngFor = "let answer of editAnswers;let i = index;trackBy:indexTracker">
                 <div class ="col s12 ">
                   <label class ="edit-mode">
-                    <input class="with-gap move-down" [(ngModel)]="correct" name="correct-{{i}}" value="{{answers[i] | slice : 0 : 2 }}" type="radio"  [checked]="checkIfCorrect(answer)"/> <span class = "input-answers">
-                      <textarea id="textarea" name ="answer-{{i}}" class="materialize-textarea" [(ngModel)]="answers[i]"></textarea>
+                    <input class="with-gap move-down" [(ngModel)]="editCorrect" name="correct{{i}}" value="{{editAnswers[i] | slice : 0 : 2 }}" type="radio"  [checked]="checkIfCorrect(answer)"/> <span class = "input-answers">
+                      <textarea id="textarea" name ="answer{{i}}" class="materialize-textarea" [(ngModel)]="editAnswers[i]"></textarea>
                     </span>
                   </label> 
                 </div>
@@ -42,6 +42,7 @@
           <div class ="input=field col s12 buttons">
             <button type ="submit" value = "Dodaj" class ="btn green "><i class="material-icons left">add</i>Edytuj</button>
             <a class="btn cancel" (click) = "toggleEditState()"><i class="material-icons left">cancel</i>Anuluj</a>
+            <a class="btn red secondary-content" (click) = "deleteItem()"><i class="material-icons left">delete</i>Usuń</a>
           </div>   
         </div>  
       </form>
@@ -49,9 +50,10 @@
     </div>
 </div>
 
-<ng-container *ngIf="showError">
+<ng-container *ngIf="showError" >
     <div class="alert">
         <span class="closebtn" (click) = "showErrorBox()">&times;</span>
-        Odpowiedzi muszą być w formacie: np. <strong>A. nie skompiluje się </strong>  lub  <strong>B. 5</strong> itp.
+        Powtarzające się nagłówki odpowiedzi lub błąd formatu!<br>
+        Np. <strong>A. nie skompiluje się </strong>  lub  <strong>B. 5</strong> itp.
       </div>
 </ng-container>

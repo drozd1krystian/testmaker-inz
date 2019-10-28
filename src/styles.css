@@ -56,11 +56,15 @@ header {
   background: #ff6d00 !important;
 }
 
-.buttons a:hover {
-  background-color: #ffab40 !important; 
+.buttons a:hover:nth-child(3)  {
+  background: var(--secondary-color) !important;
+}
+.buttons a:hover:nth-child(2)  {
+  background:  #f79143! important;
 }
 
 /*  Submit add and edit question button */
 .buttons [type="submit"]:hover {
   background: rgb(89, 204, 93) !important;
 }
+
