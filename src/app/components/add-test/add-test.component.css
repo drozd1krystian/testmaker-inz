@@ -1,0 +1,17 @@
+.buttons .load {
+  margin-left: 1rem;
+}
+.buttons a:hover {
+  background: var(--primary-hover) !important;
+}
+
+input[type="file"] {
+  padding: 0;
+}
+span {
+  color: #333 !important;
+}
+
+.question-container:last-child hr {
+  display:none;
+}

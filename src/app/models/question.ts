@@ -1,7 +1,5 @@
 export interface Question {
   question?: string;
-  answerA?: string;
-  answerB?: string;
-  answerC?: string;
-  answerD?: string;
+  answers?: String[];
+  correct?: string;
 }
