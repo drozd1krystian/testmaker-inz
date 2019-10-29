@@ -28,10 +28,12 @@ import { QuestionComponent } from './tests/test/question/question.component';
 //Routring
 import { RouterModule, Routes, Scroll } from '@angular/router';
 import { AddQuestionComponent } from './components/add-question/add-question.component';
+import { AddTestComponent } from './components/add-test/add-test.component';
 
 const appRoutes: Routes = [
   {path: 'test/:id', component: TestComponent},
   {path: '', component: TestsComponent},
+  {path: 'newtest', component: AddTestComponent},
 ];
 
 @NgModule({
@@ -45,6 +47,7 @@ const appRoutes: Routes = [
     TestComponent,
     QuestionComponent,
     AddQuestionComponent,
+    AddTestComponent,
   ],
   imports: [
     BrowserModule,

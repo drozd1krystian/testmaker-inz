@@ -65,7 +65,7 @@ export class QuestionComponent implements OnInit {
 
     this.checkAnswers();
     
-    if(this.goodAnswers && this.changed) {
+    if(this.goodAnswers && (this.changed || this.question != this.editQuestion)) {
       let question = {
         question: this.editQuestion,
         correct: this.editCorrect,

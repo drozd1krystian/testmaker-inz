@@ -1,11 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 :root {
   --primary-color : #26a69a;
+  --primary-hover : #2ec9b9;
   --secondary-color: #C92F3F;
   --menu-hover: rgb(230, 54, 71);
   --comp-color: #071E22;
   --list-hover: rgb(245, 243, 243);
-}
 
+}
+body {
+  font-family: 'Arial', sans-serif;
+}
 /* Content Container*/
 .container {
   display: flex;

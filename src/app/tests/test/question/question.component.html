@@ -1,12 +1,12 @@
 <!-- Normal view -->
 <div *ngIf = "!editState">
   <form class="form-inline">
-    <span><a class ="secondary-content"><i (click) = "toggleEditState()" class ="fa fa-pencil"></i></a> {{qNr}}. {{question}} </span>
+    <span><a class ="secondary-content"><i (click) = "toggleEditState()" class ="fa fa-pencil"></i></a> {{qNr}}. <span [innerHTML] = "question"></span></span>
     <ul>
       <li *ngFor = "let answer of answers">
           <label>
             <input class="with-gap move-down" [(ngModel)]="correct" name="correct-answer" value="{{answer | slice : 0 : 2 }}" type="radio"  [checked]="checkIfCorrect(answer)" [attr.disabled] = "editState" />
-            <span class ="answer"> {{answer}} </span>
+            <span class ="answer" [innerHTML] = "answer"></span>
           </label>
       </li>
     </ul>
@@ -24,7 +24,7 @@
       <form (ngSubmit) = "onSubmit()" class ="col s12">
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="textarea1"  name ="question" class="materialize-textarea validate" [(ngModel)]="editQuestion" required="" aria-required="true" autoresize ></textarea>
+            <textarea id="textarea1"  name ="question" class="materialize-textarea validate" [(ngModel)]="editQuestion" required="" aria-required="true"  ></textarea>
           </div>
           <div class="input-field col s12">
             <ul>
