@@ -19,9 +19,3 @@ span {
 strong {
   font-weight: bold;
 }
-
-.error {
-  background: var(--secondary-color);
-  color: #fff;
-  padding: 1rem;
-}

@@ -102,12 +102,12 @@ export class AddTestComponent implements OnInit {
          this.question = {
            question: el[0],
            answers: tempArray,
-           correct: this.answersTags[correct].toString()
+           correct: this.answersTags[correct].toString(),
+           date: new Date()
          }
          this.questions.push(this.question);
       });
     }
-
     myReader.readAsText(file, 'Windows-1250');
   }
 

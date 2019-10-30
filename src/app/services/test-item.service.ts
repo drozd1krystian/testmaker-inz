@@ -32,7 +32,7 @@ export class TestItemService {
   }
 
   getQuestions(doc_id) {
-    return this.firestore.collection('Tests').doc(doc_id).collection('Questions').snapshotChanges();
+    return this.firestore.collection('Tests').doc(doc_id).collection('Questions', ref => ref.orderBy('date')).snapshotChanges();
   }
 
   addItem(testId, question) {

@@ -23,28 +23,3 @@ label .answer {
 .edit-mode span::before, .edit-mode span::after {
   margin-top: 1rem;
 }
-
-
-/* The alert message box */
-.alert {
-  padding: 1.3rem;
-  background-color: #f44336; /* Red */
-  color: white;
-  margin-bottom: 1rem;
-}
-
-/* The close button */
-.closebtn {
-  margin-left: 1rem;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 1.5rem;
-  line-height: 1.2rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
-}

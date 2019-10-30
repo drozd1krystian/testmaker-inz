@@ -1,40 +1,61 @@
 <div class="card" >
     <div class="card-content">
       <span class ="card-title">Dodaj pytanie</span>
-      <form (ngSubmit) = "onSubmit()" class ="col s6">
+      <form (ngSubmit) = "onSubmit()" class ="col s6" [formGroup]="questionForm">
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="textarea1" name ="question" class="materialize-textarea validate" [(ngModel)]="question.question" required="" aria-required="true"></textarea>
+            <textarea id="textarea1" name ="question" class="materialize-textarea validate" formControlName="question" required="" aria-required="true"></textarea>
             <label>Tresc</label>
           </div>
-          <div class="input-field col s6">
-            <textarea id="textarea1" name ="answerA" class="materialize-textarea" [(ngModel)]="question.answerA"></textarea>
-          <label>Odp A.</label>
-          </div>
-          <div class="input-field col s6">
-            <textarea id="textarea1" name ="answerB" class="materialize-textarea" [(ngModel)]="question.answerB"></textarea>
-            <label>Odp B.</label>
-          </div>
-          <div class="input-field col s6">
-            <textarea id="textarea1" name ="answerC" class="materialize-textarea" [(ngModel)]="question.answerC"></textarea>
-            <label>Odp C.</label>
-          </div>
-          <div class="input-field col s6">
-              <textarea id="textarea1" name ="answerD" class="materialize-textarea" [(ngModel)]="question.answerD"></textarea>
-            <label>Odp D.</label>
+          <div formArrayName="answers">
+            <div *ngFor="let item of answers.controls; let i = index" [formGroupName]="i" class="input-field col s12">
+              <label>Odp {{answerTags[i]}}</label>
+              <input type = "text" formControlName="answer" />
+              <button type="button" class ="btn red" (click)="deleteAnswer(i)">
+                <i class="material-icons left">delete</i>Usuń</button>
+            </div>
+            <button type="button" class="btn "(click)="addAnswer()" *ngIf= "answers.length < 8"><i class="material-icons left">add</i>Dodaj</button>
           </div>
           <div class="input-field col s12">
-              <input type ="text" name ="correct" [(ngModel)]="question.correct" class = "validate" required="" aria-required="true">
+              <input type ="text" class = "validate" formControlName="correct" required="" aria-required="true">
             <label>Prawidłowa odp.</label>
             <div>
               <p>Proszę podać prawidłową odpowiedź w tym formacie: <span>A.</span> lub <span>B.</span> itp.</p>
             </div>
           </div>
           <div class ="input=field col s12 buttons">
-            <button type ="submit" value = "Dodaj" class ="btn green"><i class="material-icons left">add</i>Dodaj </button>
+            <button type ="submit" value = "Dodaj" class ="btn green"><i class="material-icons left">send</i>Wyślij </button>
             <a class="btn cancel" (click) = "hideForm()"><i class="material-icons left">cancel</i>Anuluj</a>
           </div>
         </div>
       </form>
+      <ng-container *ngIf = "emptyAnswer" >
+        <div class="alert" scrollTo>
+          <span class="closebtn" (click) = "showEmptyAnswerError()">&times;</span>
+          Jedna z odpowiedzi jest pusta!
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf = "noAnswers" >
+        <div class="alert" scrollTo>
+          <span class="closebtn" (click) = "showNoAnswersError()">&times;</span>
+          Wymagana min. jedna odpowiedź!
+        </div>
+      </ng-container>
+      <ng-container *ngIf = "emptyQuestion" >
+        <div class="alert" scrollTo>
+          <span class="closebtn" (click) = "showEmptyQuestionError()">&times;</span>
+          Pytanie nie może być puste!
+        </div>
+      </ng-container>
+      <ng-container *ngIf = "wrongCorrect" >
+        <div class="alert" scrollTo>
+          <span class="closebtn" (click) = "showWrongCorrectKeyError()">&times;</span>
+          Błędny klucz poprawnej odpowiedzi!
+        </div>
+       </ng-container>
     </div>
   </div>
+
+
+  
