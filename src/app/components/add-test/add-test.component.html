@@ -17,23 +17,49 @@
       <div class ="input-field col s12">
         Wczytaj pytania z pliku:
         <input type="file" name="file" class="inputfile" (change)="changeListener($event)" />
+      </div>   
+      <div class="input-field col s12" *ngIf ="testExist">
+        <p class ="error" >
+          Test o tej nazwie już istnieje!
+        </p>
       </div>
-    </div>
+      </div>
     </form>
   </div>
 </div>
 
 <div class ="question-container" *ngFor = "let item of questions; let i = index;trackBy:indexTracker">
-   {{i + 1}}. <span [innerHTML] = "item.question"></span>
-    <ul>
-      <li *ngFor = "let answer of item.answers; let k = index;trackBy:indexTracker" >
-        <form>
-          <label>
-            <input class="with-gap move-down"  [(ngModel)]="item.correct" name="i-correct{{k}}" type="radio"  [value]="answer | slice : 0 : 2 " [attr.disabled] = "true" />
-            <span class ="answer" [innerHTML] = "answer"></span>
-          </label>
-        </form>
-      </li>
-    </ul>
-    <hr>
+  {{i + 1}}. <span [innerHTML] = "item.question"></span>
+  <ul>
+    <li *ngFor = "let answer of item.answers; let k = index;trackBy:indexTracker" >
+      <form>
+        <label>
+          <input class="with-gap move-down"  [(ngModel)]="item.correct" name="i-correct{{k}}" type="radio"  [value]="answer | slice : 0 : 2 " [attr.disabled] = "true" />
+          <span class ="answer" [innerHTML] = "answer"></span>
+        </label>
+      </form>
+    </li>
+  </ul>
+  <hr>
+</div>
+
+<ng-container *ngIf = "showTemplate">
+  
+  <ul>
+    <li >
+      Pierwsza linijka pliku to nazwa przedmiotu oraz po <strong>, </strong>nazwa testu. W następnej lini natomiast     podana jest data. <br>
+    </li>
+    <li>
+      Pytania oddzielone są <strong>#</strong>, nastomiast odpowiedzi do pytania <strong>---</strong>. 
+    </li>
+    <li>  
+        Poprawna odpowiedź zaznaczana jest znakiem  <strong>+</strong>
+    </li>
+  </ul> 
+  <h5>Przykładowy format pliku</h5>
+  <hr>
+  <div class ="img"> 
+      <img src="../../../assets/img/fileFormat.PNG" alt="fileFormat">
   </div>
+</ng-container>
+
