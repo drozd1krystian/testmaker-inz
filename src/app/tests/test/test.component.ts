@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TestItemService } from '../../services/test-item.service';
-import { Test } from '../../models/test';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 
