@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Question} from '../../models/question';
+import {TestItemService} from '../../services/test-item.service';
 
 @Component({
   selector: 'app-add-test',
@@ -14,9 +15,15 @@ export class AddTestComponent implements OnInit {
   questions: Question[] = [];
   question: Question;
   answersTags: String[] = ['A.', 'B.', 'C.', 'D.', 'E.', 'F', 'G', 'H'];
-  constructor() { }
+
+  showTemplate: boolean = true;
+  testExist: boolean = false;
+  constructor(private testService: TestItemService ) { }
 
   ngOnInit() {
+    this.testService.testExist.subscribe(el => {
+      this.testExist = el;
+    })
   }
 
   changeListener($event) : void {
@@ -28,6 +35,8 @@ export class AddTestComponent implements OnInit {
 
  
     myReader.onloadend = () => {
+      // Remove template img
+      this.showTemplate = false;
       //Get content from file
       let content = myReader.result.toString();
 
@@ -46,17 +55,19 @@ export class AddTestComponent implements OnInit {
       let testInfoArray = testInfo.split(',');
       
       // Get category (test file have name and date)
-      let category = testInfoArray[1].split('\n')[0];
-
+      let name = testInfoArray[1].split('\n')[0];
+      name = name.trim();
       // Replace HTML tags in test name
       testInfoArray[0] = testInfoArray[0].replace(/<b>/g, '');
       testInfoArray[0] = testInfoArray[0].replace(/<\/b>/g,'');
-      this.testName = category;
+      
+      this.testName = name.replace(/[\n\r]/g, '');;
       this.testCategory = testInfoArray[0];
 
       arrayQuestions.forEach(el => {
        // Replace tags in question for HTML <code>
        el[0] = el[0].replace(/<cs>/g, '<br><code>');
+       el[0] = el[0].replace(/[\n\r]/g, '');
        el[0] = el[0].replace(/<\/cs>/g, '</code><br>');
        el[0] = el[0].replace(/<c>/g, '<code>');
        el[0] = el[0].replace(/<\/c>/g, '</code>');
@@ -103,5 +114,11 @@ export class AddTestComponent implements OnInit {
   // Track id of answers items
   indexTracker(index: number, value: any) {
     return index;
+  }
+
+  onSubmit() {
+    if(this.testName != '' && this.testCategory != '') {
+      this.testService.addTest(this.testName.toUpperCase(), this.testCategory.toUpperCase(), this.questions)
+    } 
   }
 }
