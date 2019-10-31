@@ -20,7 +20,7 @@ export class QuestionComponent implements OnInit {
   // Edit question state
   editState = false;
   goodAnswers = true;
-  answersSubstring = ['A.','B.','C.','D.'];
+  answersSubstring = ['A.','B.','C.','D.', 'E.', 'F.', 'G.', 'H.'];
   showError = false;
   editQuestion: string;
   editAnswers: String[];
@@ -65,7 +65,7 @@ export class QuestionComponent implements OnInit {
 
     this.checkAnswers();
     
-    if(this.goodAnswers && (this.changed || this.question != this.editQuestion)) {
+    if(this.goodAnswers && (this.changed || this.question != this.editQuestion || this.editCorrect != this.correct)) {
       let question = {
         question: this.editQuestion,
         correct: this.editCorrect,
@@ -84,7 +84,7 @@ export class QuestionComponent implements OnInit {
     this.showError = !this.showError;
   }
 
-  // Check if answers starts with A. B. C. D. 
+  // Check if answers starts with A. B. C. D. ... 
   checkAnswers() {
     this.editAnswers.forEach((el, index) => {
       let temp = el.slice(0,2);
@@ -100,7 +100,6 @@ export class QuestionComponent implements OnInit {
       }
     })
   }
-
 
   deleteItem() {
     this.testService.deleteItem(this.testId, this.questionId);

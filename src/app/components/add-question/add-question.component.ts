@@ -72,8 +72,8 @@ export class AddQuestionComponent implements OnInit {
     }) 
     if(answersArray.length == 0) {
       this.noAnswers = true;
-      return;
-    } else if (this.question.value.trim() == '') {
+    } 
+    if (this.question.value.trim() == '') {
       this.emptyQuestion = true;
       return;
     } else if(!this.emptyAnswer) {

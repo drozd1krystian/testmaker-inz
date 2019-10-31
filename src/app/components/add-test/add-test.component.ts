@@ -14,7 +14,7 @@ export class AddTestComponent implements OnInit {
 
   questions: Question[] = [];
   question: Question;
-  answersTags: String[] = ['A.', 'B.', 'C.', 'D.', 'E.', 'F', 'G', 'H'];
+  answersTags: String[] = ['A.', 'B.', 'C.', 'D.', 'E.', 'F.', 'G.', 'H.'];
 
   showTemplate: boolean = true;
   testExist: boolean = false;
@@ -87,7 +87,7 @@ export class AddTestComponent implements OnInit {
 
         // Add answer tags 'A.' etc
         tempArray.forEach((el, index) => {
-          tempArray[index] = `${this.answersTags[index]} ${el}`;
+          tempArray[index] = `${this.answersTags[index]} ${el}`.trim();
 
           // Replace with <code>
           tempArray[index] = tempArray[index].replace(/<c>/g, '<code>');
