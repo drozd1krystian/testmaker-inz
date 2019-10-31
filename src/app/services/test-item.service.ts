@@ -57,7 +57,7 @@ export class TestItemService {
         this.firestore.collection('Tests').doc(testId).set({
           Category: testCategory.toUpperCase()
         });
-        if(questionList.length > 1) {
+        if(questionList.length > 0) {
           let batch = this.firestore.firestore.batch();
           questionList.forEach( (el,index) => {
             let id = this.firestore.createId();

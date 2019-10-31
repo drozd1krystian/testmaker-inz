@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TestItemService } from '../../services/test-item.service';
 import { ActivatedRoute } from '@angular/router';
+import { Question} from '../../models/question';
 
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-test',
@@ -13,11 +17,10 @@ export class TestComponent implements OnInit {
   // Id from link
   doc_id: any;
   singleTest: any;
-  questions: any[];
+  questions: any[] = [];
 
-  yearbook: string;
   group: string;
-
+  makePDF: boolean = false;
   // Show add question form:
   show: boolean = false;
 
@@ -52,4 +55,37 @@ export class TestComponent implements OnInit {
     this.show == true ? this.show = false : this.show = true;
     this.testService.show.emit(this.show);
   }
+
+  // Make PDF
+  generatePdf(action = 'download') {
+    // const documentDefinition = this.getDocumentDefinition();
+    // switch (action) {
+    //   case 'download': pdfMake.createPdf(documentDefinition).download(); break;
+    // }
+
+    this.makePDF = true;
+  }
+
+
+  getDocumentDefinition() {
+
+    
+    // Deep copy the array to remove HTML tags
+    let questionArray = [];
+    this.questions.forEach(el => {
+      questionArray.push(JSON.parse(JSON.stringify(el)));
+    })
+    
+    questionArray.forEach(el => {
+      el.question = el.question.replace(/<code>/g, '<span>');
+      el.question = el.question.replace(/<\/code>/g, '</span>');
+
+      el.answers.forEach((ans, index) => {
+        el.answers[index] = el.answers[index].replace(/<code>/g, '<span">');
+        el.answers[index] = el.answers[index].replace(/<\/code>/g, '</span>');
+        el.answers[index] = `${el.answers[index]}<br>`  
+      })
+    })   
+  }
+
 }

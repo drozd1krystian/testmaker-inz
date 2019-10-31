@@ -13,3 +13,21 @@ a {
     flex-direction: column;
   }
 }
+.question p {
+  font-size: 16px;
+}
+.question ul li p:first-child {
+  margin-top: 0px;
+
+}
+.question {
+  columns: 2;
+}
+span{
+  font-size: 14px;
+}
+
+kendo-pdf-export {
+  font-family: "Arial", sans-serif;
+  font-size: 12px;
+}
