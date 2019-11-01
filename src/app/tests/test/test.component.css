@@ -20,7 +20,12 @@ a {
 }
 
 .question {
-  columns: 2;
+  overflow: initial;
+}
+
+.question > li {
+  margin-bottom: 1rem;
+  overflow: initial;
 }
 span{
   font-size: 12px;
@@ -28,9 +33,9 @@ span{
 
 kendo-pdf-export {
   font-size: 12px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;  
+  width: 7in; height: 9.25in
 }
-
-.question li ul {
-  margin-bottom: 1rem;
+.question > div:last-child(){
+  display:none;
 }

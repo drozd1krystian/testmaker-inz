@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TestItemService } from '../../services/test-item.service';
 import { ActivatedRoute } from '@angular/router';
-import { Question} from '../../models/question';
 
 
 @Component({
@@ -15,6 +14,10 @@ export class TestComponent implements OnInit {
   doc_id: any;
   singleTest: any;
   questions: any[] = [];
+  wojtusie = [
+    {id: '100441', imie: 'Krystian', nazwisko: 'Drozd'},
+    {id: '100440', imie: 'Adrian', nazwisko: 'Bury'}
+  ]
 
   group: string;
   makePDF: boolean = false;
@@ -35,7 +38,7 @@ export class TestComponent implements OnInit {
     // Subscribe to event that emits if form should be displayed
     this.testService.show.subscribe(el => {
       this.show = el;
-    })
+    });
 
     //Get questions from test
     this.testService.getQuestions(this.doc_id).subscribe (arr => {
@@ -45,7 +48,12 @@ export class TestComponent implements OnInit {
           ...q.payload.doc.data()
         }
       })
-    })
+      this.questions.forEach((el,index) => {
+        this.questions[index].question = `${index + 1}. ${el.question}`;
+      });
+    });
+    
+   
   }
 
   toggleForm() {
@@ -54,12 +62,10 @@ export class TestComponent implements OnInit {
   }
 
   // Make PDF
-  generatePdf(action = 'download') {
-    // const documentDefinition = this.getDocumentDefinition();
-    // switch (action) {
-    //   case 'download': pdfMake.createPdf(documentDefinition).download(); break;
-    // }
+  generatePdf() {
+    this.makePDF = !this.makePDF;
 
-    this.makePDF = true;
+    
+
   }
 }
