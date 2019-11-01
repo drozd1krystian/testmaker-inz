@@ -3,9 +3,6 @@ import { TestItemService } from '../../services/test-item.service';
 import { ActivatedRoute } from '@angular/router';
 import { Question} from '../../models/question';
 
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-test',
@@ -65,27 +62,4 @@ export class TestComponent implements OnInit {
 
     this.makePDF = true;
   }
-
-
-  getDocumentDefinition() {
-
-    
-    // Deep copy the array to remove HTML tags
-    let questionArray = [];
-    this.questions.forEach(el => {
-      questionArray.push(JSON.parse(JSON.stringify(el)));
-    })
-    
-    questionArray.forEach(el => {
-      el.question = el.question.replace(/<code>/g, '<span>');
-      el.question = el.question.replace(/<\/code>/g, '</span>');
-
-      el.answers.forEach((ans, index) => {
-        el.answers[index] = el.answers[index].replace(/<code>/g, '<span">');
-        el.answers[index] = el.answers[index].replace(/<\/code>/g, '</span>');
-        el.answers[index] = `${el.answers[index]}<br>`  
-      })
-    })   
-  }
-
 }

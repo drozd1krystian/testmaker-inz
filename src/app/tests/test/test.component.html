@@ -40,18 +40,17 @@
       </button>
     </div>
   <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
-  <div class="size-a4">  
     <ul class ="question">
-      <li *ngFor = "let item of questions; let i = index">
-        <p [innerHTML] = "item.question">{{i}}.</p>
-        <ul>
-          <li *ngFor = "let answer of item.answers">
-            <span [innerHTML] = "answer"></span>
-          </li>
-        </ul>
+      
+      <li *ngFor = "let item of questions">
+          <span [innerHTML] = "item.question" class = "question-text"></span>
+          <ul>
+            <li *ngFor = "let answer of item.answers">
+              <span [innerHTML] = "answer"></span>
+            </li>  
+          </ul>
       </li>
     </ul>
-  </div>
   </kendo-pdf-export>
 </ng-container>
 
