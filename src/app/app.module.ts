@@ -32,6 +32,8 @@ import { AddTestComponent } from './components/add-test/add-test.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {PDFExportModule} from '@progress/kendo-angular-pdf-export';
 
+import { QRCodeModule } from 'angular2-qrcode';
+
 const appRoutes: Routes = [
   {path: 'test/:id', component: TestComponent},
   {path: '', component: TestsComponent},
@@ -62,7 +64,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     PDFExportModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    QRCodeModule,
   ],
   providers: [TestItemService],
   bootstrap: [AppComponent]

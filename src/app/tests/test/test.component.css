@@ -15,10 +15,39 @@ a {
 }
 
 kendo-pdf-export {
-  font-size: 10px;
+  font-size: 0.7rem;
   font-family: "Roboto";
 }
 
 .question > li {
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.answer-number{
+  margin-right: 1rem;
+}
+.answer-number:first-child {
+  margin-left: 0;
+}
+
+.answers-Nb {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* QR style */
+
+#qrCode{
+  margin: 1rem 0 1rem 0;
+  display: flex;
+  flex-direction: row;
+}
+.name-surname {
+  margin-left: 2rem;
+  line-height: 1.7rem;
+}
+
+kendo-pdf-export .page-break:last-child {
+  display:none;
 }
