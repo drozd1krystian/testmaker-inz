@@ -34,6 +34,7 @@ export class QuestionComponent implements OnInit {
   ngOnInit() {
     //this.question = this.question.replace(/[.*+?^${}()|[\]\\]n/g, '\n'); 
    // this.answers.forEach(el => el.replace(/[.*+?^${}()|[\]\\]n/g, '\n'))
+
     this.editQuestion = this.question;
     this.editCorrect = this.correct;
     this.editAnswers = [...this.answers];

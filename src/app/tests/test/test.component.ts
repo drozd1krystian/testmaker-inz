@@ -13,14 +13,11 @@ export class TestComponent implements OnInit {
   // Id from link
   doc_id: any;
   singleTest: any;
-  questions: any[] = [];
-  wojtusie = [
-    {id: '100441', imie: 'Krystian', nazwisko: 'Drozd'},
-    {id: '100440', imie: 'Adrian', nazwisko: 'Bury'}
-  ]
+  questions: any[];
 
+  yearbook: string;
   group: string;
-  makePDF: boolean = false;
+
   // Show add question form:
   show: boolean = false;
 
@@ -38,7 +35,7 @@ export class TestComponent implements OnInit {
     // Subscribe to event that emits if form should be displayed
     this.testService.show.subscribe(el => {
       this.show = el;
-    });
+    })
 
     //Get questions from test
     this.testService.getQuestions(this.doc_id).subscribe (arr => {
@@ -48,24 +45,11 @@ export class TestComponent implements OnInit {
           ...q.payload.doc.data()
         }
       })
-      this.questions.forEach((el,index) => {
-        this.questions[index].question = `${index + 1}. ${el.question}`;
-      });
-    });
-    
-   
+    })
   }
 
   toggleForm() {
     this.show == true ? this.show = false : this.show = true;
     this.testService.show.emit(this.show);
-  }
-
-  // Make PDF
-  generatePdf() {
-    this.makePDF = !this.makePDF;
-
-    
-
   }
 }
