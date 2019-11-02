@@ -1,7 +1,7 @@
 <div class="header">
   <div>
-      <span class ="test-label text-bold bigger-label">Nazwa testu:</span> <span class ="text-bold    bigger-label">{{doc_id}}</span>
-      <span class ="test-label text-bold bigger-label">Przedmiot:</span> <span class ="text-bold bigger-label">{{singleTest?.Category}}</span> 
+    <span class ="test-label text-bold bigger-label">Nazwa testu:</span> <span class ="text-bold    bigger-label">{{doc_id}}</span>
+    <span class ="test-label text-bold bigger-label">Przedmiot:</span> <span class ="text-bold bigger-label">{{singleTest?.Category}}</span> 
   </div>
 </div>
 
@@ -10,9 +10,14 @@
       <span class ="card-title">Stwórz test</span>
       <form  class ="col s6">
         <div class="row">
-          <div class="input-field col s12">
-            <input type ="text" name ="group" [(ngModel)]="group" class = "validate" required="" aria-required="true">
-            <label>Grupa</label>
+          <form [formGroup] = "groupForm" novalidate>
+            <input type="text" id="search" formControlName = "search" placeholder="Szukaj" (click) = "openDropDown()" 
+              clickOutside (clickOutside)="closeDropDown()" autocomplete="off" >
+          </form>
+          <div class="tests-container-dropdown" *ngIf = "(showDropDown || search)">
+            <div (click)='selectValue(item.id)' *ngFor = "let item of groups | searchFilter: getSearchValue(): 'id'">
+              <span class ="text-bold">{{item.id}}</span>
+            </div>
           </div>
           <div class ="input=field col s6">
             <button value = "Stwórz" class ="btn btn-make" (click) = "generatePdf()">Stworz</button>
@@ -22,34 +27,35 @@
     </div>
   </div>
 
+<!-- Question list -->
 <div class = "question-container" *ngIf = "!makePDF">
   <ul class = "collection">
     <li *ngFor = "let item of questions; let i = index;" class ="collection-item">
       <app-question [testId] = "doc_id" [questionId] = "item.id" [correct] = "item.correct" [question] ="item.question" [answers] = "item.answers" [qNr] = "i+1"></app-question>
     </li>
   </ul>
-  <a class="btn-floating btn-large waves-effect waves-light green" (click) = "toggleForm()"><i class="material-icons">add</i></a>
-  
+  <a class="btn-floating btn-large waves-effect waves-light green" (click) = "toggleForm()"><i class="material-icons">add</i></a> 
   <app-add-question [testId] = "doc_id" *ngIf = "show" scrollTo></app-add-question>
 </div>
 
+<!-- PDF View -->
 <ng-container *ngIf = "makePDF">
   <div>
     <button kendo-button class ="btn" (click)="removeBreak(); pdf.saveAs('manual-paging.pdf')">
         Zapisz PDF
     </button>
-    <button class ="btn cancel" (click) = "generatePdf()">Anuluj</button>
+    <button class ="btn cancel" (click) = "togglePdf()">Anuluj</button>
   </div>
   <kendo-pdf-export #pdf paperSize="A4" margin="1.5cm" [scale] = "1" forcePageBreak=".page-break">
-    <div *ngFor = "let w of wojtusie; let studNr = index">
+    <div *ngFor = "let student of students; let studNr = index">
       <div style = "width:100%" class ="answers-Nb">
         <span class = "answer-number" *ngFor="let item of [].constructor(questions.length); let i = index">{{i+1}}.</span>
       </div>
       <div id = "qrCode">
-          <qr-code [value]="w.qr" [size]="100"></qr-code>
+          <qr-code [value]="student.qr" [size]="100"></qr-code>
           <div class ="name-surname">
-            <span>Imie: <br></span>
-            <span>Nazwisko: </span>
+            <span>Imie: {{student.name}}<br></span>
+            <span>Nazwisko: {{student.surname}} </span>
           </div>
       </div>
       <ul class ="question" >

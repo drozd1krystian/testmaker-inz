@@ -35,6 +35,13 @@ export class TestItemService {
     return this.firestore.collection('Tests').doc(doc_id).collection('Questions', ref => ref.orderBy('date')).snapshotChanges();
   }
 
+  getStudents(gr: string) {
+    return this.firestore.collection('Students').doc(gr).collection('students').snapshotChanges();
+  }
+
+  getGroups() {
+    return this.firestore.collection('Students').snapshotChanges();
+  }
   addItem(testId, question) {
     this.testsCollection.doc(testId).collection('Questions').add(question);
   }
@@ -70,4 +77,5 @@ export class TestItemService {
       }
     })
   }
+  
 }
