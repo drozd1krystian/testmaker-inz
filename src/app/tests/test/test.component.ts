@@ -15,12 +15,16 @@ export class TestComponent implements OnInit {
   singleTest: any;
   questions: any[];
 
-  yearbook: string;
   group: string;
-
   // Show add question form:
+  makePDF: boolean = false;
   show: boolean = false;
 
+  wojtusie = [
+    {id: '100441', imie: 'Krystian', nazwisko: 'Drozd'},
+    {id: '100440', imie: 'Adrian', nazwisko: 'Bury'}
+  ]
+  
   constructor(private testService: TestItemService, private _Activatedroute:ActivatedRoute) {
       //Read test id from router
       this.doc_id = this._Activatedroute.snapshot.paramMap.get("id");    
@@ -51,5 +55,13 @@ export class TestComponent implements OnInit {
   toggleForm() {
     this.show == true ? this.show = false : this.show = true;
     this.testService.show.emit(this.show);
+  }
+
+  // Make PDF
+  generatePdf() {
+    this.makePDF = !this.makePDF;
+
+    
+
   }
 }
