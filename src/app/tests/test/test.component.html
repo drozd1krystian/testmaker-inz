@@ -35,24 +35,35 @@
 
 <ng-container *ngIf = "makePDF">
   <div>
-    <button kendo-button class ="btn" (click)="pdf.saveAs('manual-paging.pdf')">
+    <button kendo-button class ="btn" (click)="removeBreak(); pdf.saveAs('manual-paging.pdf')">
         Zapisz PDF
     </button>
     <button class ="btn cancel" (click) = "generatePdf()">Anuluj</button>
   </div>
-  <kendo-pdf-export #pdf paperSize="A4" margin="2cm" [scale] = "1" forcePageBreak=".page-break">
-    <ul class ="question" *ngFor = "let w of wojtusie">
-      {{w.imie}}
-      <div id = "qrCode"></div>
-      <li *ngFor = "let item of questions">
+  <kendo-pdf-export #pdf paperSize="A4" margin="1.5cm" [scale] = "1" forcePageBreak=".page-break">
+    <div *ngFor = "let w of wojtusie; let studNr = index">
+      <div style = "width:100%" class ="answers-Nb">
+        <span class = "answer-number" *ngFor="let item of [].constructor(questions.length); let i = index">{{i+1}}.</span>
+      </div>
+      <div id = "qrCode">
+          <qr-code [value]="w.qr" [size]="100"></qr-code>
+          <div class ="name-surname">
+            <span>Imie: <br></span>
+            <span>Nazwisko: </span>
+          </div>
+      </div>
+      <ul class ="question" >
+        <li *ngFor = "let item of questions">
           <span [innerHTML] = "item.question" class = "question-text"></span>
           <ul>
             <li *ngFor = "let answer of item.answers">
-              <span [innerHTML] = "answer"></span>
+              <span [innerHTML] = "answer" class ="answer"></span>
             </li>  
           </ul>
-      </li>
-      <div class ="page-break"></div>
-    </ul>
+        </li>
+        <div class ="page-break"></div>
+        <div class ="page-break"></div>
+      </ul>
+    </div> 
   </kendo-pdf-export>
 </ng-container>
