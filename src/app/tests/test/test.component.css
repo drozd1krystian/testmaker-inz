@@ -51,3 +51,8 @@ kendo-pdf-export {
 kendo-pdf-export .page-break:last-child {
   display:none;
 }
+
+/* Remove input margin for Drop Down */
+form input {
+  margin-bottom: 0;
+}
