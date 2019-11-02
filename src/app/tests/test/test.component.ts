@@ -15,7 +15,9 @@ export class TestComponent implements OnInit {
   singleTest: any;
   questions: any[];
 
+  yearbook: string;
   group: string;
+
   // Show add question form:
   makePDF: boolean = false;
   show: boolean = false;
@@ -57,11 +59,7 @@ export class TestComponent implements OnInit {
     this.testService.show.emit(this.show);
   }
 
-  // Make PDF
   generatePdf() {
     this.makePDF = !this.makePDF;
-
-    
-
   }
 }

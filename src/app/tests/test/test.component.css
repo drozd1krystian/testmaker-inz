@@ -13,3 +13,12 @@ a {
     flex-direction: column;
   }
 }
+
+kendo-pdf-export {
+  font-size: 10px;
+  font-family: "Roboto";
+}
+
+.question > li {
+  margin-bottom: 1rem;
+}

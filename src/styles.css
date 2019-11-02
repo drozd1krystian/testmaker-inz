@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
+@font-face {
+  font-family: 'Roboto';
+  src: url("/assets/fonts/roboto/Roboto-Regular.ttf") format("truetype");
+}
+
 :root {
   --primary-color : #26a69a;
   --primary-hover : #2ec9b9;
