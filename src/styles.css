@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
-/* Code font */
-@import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
-
 :root {
   --primary-color : #26a69a;
   --primary-hover : #2ec9b9;

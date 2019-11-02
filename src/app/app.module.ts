@@ -29,10 +29,6 @@ import { QuestionComponent } from './tests/test/question/question.component';
 import { RouterModule, Routes, Scroll } from '@angular/router';
 import { AddQuestionComponent } from './components/add-question/add-question.component';
 import { AddTestComponent } from './components/add-test/add-test.component';
-import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
 
 const appRoutes: Routes = [
   {path: 'test/:id', component: TestComponent},
@@ -62,10 +58,7 @@ const appRoutes: Routes = [
 
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes),
-    PDFExportModule,
-    BrowserAnimationsModule,
-    BrowserModule
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [TestItemService],
   bootstrap: [AppComponent]
