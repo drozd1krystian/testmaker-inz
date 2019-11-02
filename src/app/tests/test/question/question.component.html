@@ -1,7 +1,7 @@
 <!-- Normal view -->
 <div *ngIf = "!editState">
   <form class="form-inline">
-    <span><a class ="secondary-content"><i (click) = "toggleEditState()" class ="fa fa-pencil"></i></a><span [innerHTML] = "question"></span></span>
+    <span><a class ="secondary-content"><i (click) = "toggleEditState()" class ="fa fa-pencil"></i></a> {{qNr}}. <span [innerHTML] = "question"></span></span>
     <ul>
       <li *ngFor = "let answer of answers">
           <label>
