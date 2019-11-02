@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Roboto";
+  src: url('../../../assets/fonts/Roboto-Regular.ttf') format("truetype");
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -12,4 +17,25 @@ a {
     display: flex;
     flex-direction: column;
   }
+}
+
+.question {
+  overflow: initial;
+}
+
+.question > li {
+  margin-bottom: 1rem;
+  overflow: initial;
+}
+span{
+  font-size: 12px;
+}
+
+kendo-pdf-export {
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;  
+  width: 7in; height: 9.25in
+}
+.question > div:last-child(){
+  display:none;
 }

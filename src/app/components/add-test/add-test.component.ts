@@ -85,19 +85,19 @@ export class AddTestComponent implements OnInit {
         //Remove last empty element
         tempArray = tempArray.filter(el => el !='');
 
-        // Add answer tags 'A.' etc
-        tempArray.forEach((el, index) => {
-          tempArray[index] = `${this.answersTags[index]} ${el}`.trim();
-
-          // Replace with <code>
-          tempArray[index] = tempArray[index].replace(/<c>/g, '<code>');
-          tempArray[index] = tempArray[index].replace(/<\/c>/g, '</code>');
-        })
-
         // Find correct answer
         let correct = tempArray.findIndex(el => el.includes('+'));
         tempArray[correct] = tempArray[correct].replace('+', '');
 
+
+        // Add answer tags 'A.' etc
+        tempArray.forEach((el, index) => {
+          tempArray[index] = tempArray[index].trim();
+          tempArray[index] = `${this.answersTags[index]}${el}`;
+          // Replace with <code>
+          tempArray[index] = tempArray[index].replace(/<c>/g, '<code>');
+          tempArray[index] = tempArray[index].replace(/<\/c>/g, '</code>');
+        })
         // Put to object
          this.question = {
            question: el[0],
