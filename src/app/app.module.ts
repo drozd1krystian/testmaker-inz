@@ -33,11 +33,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {PDFExportModule} from '@progress/kendo-angular-pdf-export';
 
 import { QRCodeModule } from 'angular2-qrcode';
+import { StudentsComponent } from './students/students.component';
+import { StudentComponent } from './students/student/student.component';
+import { GradeComponent } from './students/student/grade/grade.component';
+import { DatePipe } from '@angular/common';
 
 const appRoutes: Routes = [
   {path: 'test/:id', component: TestComponent},
   {path: '', component: TestsComponent},
   {path: 'newtest', component: AddTestComponent},
+  {path: 'students', component: StudentsComponent},
 ];
 
 @NgModule({
@@ -52,6 +57,9 @@ const appRoutes: Routes = [
     QuestionComponent,
     AddQuestionComponent,
     AddTestComponent,
+    StudentsComponent,
+    StudentComponent,
+    GradeComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +75,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     QRCodeModule,
   ],
-  providers: [TestItemService],
+  providers: [TestItemService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

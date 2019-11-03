@@ -1,3 +1,7 @@
+/* Remove input margin for Drop Down */
+form input {
+  margin-bottom: 0;
+}
 
 /* List style */
 .list-container ul {
@@ -8,10 +12,6 @@
   line-height: 2rem;
 }
 
-.collection .collection-item:hover {
-  background-color: var(--list-hover);
-  transition: background-color .5s ease-out;
-}
 .list-item {
   color: #333;
   font-weight: 600;
@@ -21,12 +21,6 @@
   font-style: italic;
   color: var(--primary-color);
   font-weight: bold;
-}
-
-
-/* Remove input margin for Drop Down */
-form input {
-  margin-bottom: 0;
 }
 
 i {

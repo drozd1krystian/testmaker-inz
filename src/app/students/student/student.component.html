@@ -1,0 +1,23 @@
+<a class ="secondary-content"><i (click) = "showStudentDetails()" class="fa fa-angle-down fa-2x"></i></a>
+<span class ="test-label">Nr. indeksu:</span> {{student?.index}}
+<span class ="test-label">Imie:</span> {{student?.name}}
+<span class ="test-label" style = "margin-left: 1rem">Nazwisko:</span> {{student?.surname}} 
+
+<ng-container *ngIf = "showDetails">
+  <table class="highlight centered ">
+    <thead>
+      <tr>
+        <th>Przedmiot</th>
+        <th>Kolokwium</th>
+        <th>Ocena</th>
+        <th>Ilość punktów</th>
+        <th>Data</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr  *ngFor = "let item of student.grades" app-grade-row [grade] = "item" [studentId] = "student.index" [group] = "group"></tr>
+    </tbody>
+  </table>
+</ng-container>   

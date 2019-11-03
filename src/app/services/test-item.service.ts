@@ -38,6 +38,10 @@ export class TestItemService {
   getStudents(gr: string) {
     return this.firestore.collection('Students').doc(gr).collection('students').snapshotChanges();
   }
+  
+  getStudentGrades(studId, gr) {
+    return this.firestore.collection('Students').doc(gr).collection('students').doc(studId).collection('grades').snapshotChanges();
+  }
 
   getGroups() {
     return this.firestore.collection('Students').snapshotChanges();
@@ -48,6 +52,10 @@ export class TestItemService {
 
   updateItem(testId, questionId, question){
     this.testsCollection.doc(testId).collection('Questions').doc(questionId).update(question);
+  }
+
+  updateGrade(group, studId, gradeId, grade) {
+    this.firestore.collection('Students').doc(group).collection('students').doc(studId).collection('grades').doc(gradeId).update(grade)
   }
 
   deleteItem(testId, questionId) {
