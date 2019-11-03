@@ -5,6 +5,12 @@
   src: url("/assets/fonts/roboto/Roboto-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Roboto";
+  src: url("/assets/fonts/roboto/Roboto-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
 :root {
   --primary-color : #26a69a;
   --primary-hover : #2ec9b9;

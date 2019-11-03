@@ -30,11 +30,10 @@ kendo-pdf-export {
 }
 
 .nb {
-  width: 2rem;
+  width: 1.7rem;
   border: 0.4px solid rgb(228, 225, 225);
   display: inline-block; 
   text-align: center;
-  padding: 0.1rem;
   margin-bottom: 0.7rem;
   
 }
@@ -64,13 +63,14 @@ kendo-pdf-export .page-break:last-child {
   display:none;
 }
 
-kendo-pdf-export .answers-Nb > div:nth-child(8n) .empty{
+kendo-pdf-export .answers-Nb > div:nth-child(10n) .empty{
+  color: #000;
   border-right: 0.4px solid rgb(228, 225, 225);
 }
 
 kendo-pdf-export .nb span{
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 /* Remove input margin for Drop Down */
