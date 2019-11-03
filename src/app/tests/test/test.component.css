@@ -23,33 +23,54 @@ kendo-pdf-export {
   margin-bottom: 0.6rem;
 }
 
-.answer-number{
-  margin-right: 1rem;
-}
-.answer-number:first-child {
-  margin-left: 0;
-}
-
 .answers-Nb {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-/* QR style */
+.nb {
+  width: 2rem;
+  border: 0.4px solid rgb(228, 225, 225);
+  display: inline-block; 
+  text-align: center;
+  padding: 0.1rem;
+  margin-bottom: 0.7rem;
+  
+}
 
-#qrCode{
+.empty {
+  border-left: none;
+  border-right: none;
+}
+
+.answers-Nb > div:last-child .empty {
+  border-right: 0.4px solid rgb(228, 225, 225);
+}
+
+/* QR style */
+#test-header{
   margin: 1rem 0 1rem 0;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
+
 .name-surname {
-  margin-left: 2rem;
   line-height: 1.7rem;
 }
 
 kendo-pdf-export .page-break:last-child {
   display:none;
+}
+
+kendo-pdf-export .answers-Nb > div:nth-child(8n) .empty{
+  border-right: 0.4px solid rgb(228, 225, 225);
+}
+
+kendo-pdf-export .nb span{
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 /* Remove input margin for Drop Down */
