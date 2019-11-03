@@ -85,7 +85,7 @@ export class TestComponent implements OnInit {
   }
 
   generatePdf() {
-    if(this.getSearchValue() != '') {
+    if(this.groups.some(el => el.id == this.getSearchValue())) {
       this.togglePdf()
       this.testService.getStudents(this.getSearchValue()).subscribe(arr => {
         this.students = arr.map(q => {
@@ -98,6 +98,9 @@ export class TestComponent implements OnInit {
           this.students[index].qr = this.makeQR(el);
         })
       })
+    }
+    else {
+      this.makePDF = false;
     }
   }
 

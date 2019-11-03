@@ -41,22 +41,31 @@
 <!-- PDF View -->
 <ng-container *ngIf = "makePDF">
   <div>
-    <button kendo-button class ="btn" (click)="removeBreak(); pdf.saveAs('manual-paging.pdf')">
+    <button kendo-button class ="btn" (click)="removeBreak(); pdf.saveAs(doc_id+'.pdf')">
         Zapisz PDF
     </button>
     <button class ="btn cancel" (click) = "togglePdf()">Anuluj</button>
   </div>
   <kendo-pdf-export #pdf paperSize="A4" margin="1.5cm" [scale] = "1" forcePageBreak=".page-break">
     <div *ngFor = "let student of students; let studNr = index">
-      <div style = "width:100%" class ="answers-Nb">
-        <span class = "answer-number" *ngFor="let item of [].constructor(questions.length); let i = index">{{i+1}}.</span>
+      <div id = "test-header">
+        <div class ="name-surname">
+          <span>Test: {{doc_id}}<br></span>
+          <span>Imie: {{student.name}}<br></span>
+          <span>Nazwisko: {{student.surname}} </span><br>
+          <span>Grupa: {{this.getSearchValue().slice(this.getSearchValue().length - 4, this.getSearchValue().length)}}<br></span>
+        </div>
+        <div class ="qr-code"><qr-code [value]="student.qr" [size]="100"></qr-code></div>
       </div>
-      <div id = "qrCode">
-          <qr-code [value]="student.qr" [size]="100"></qr-code>
-          <div class ="name-surname">
-            <span>Imie: {{student.name}}<br></span>
-            <span>Nazwisko: {{student.surname}} </span>
+      <div style = "width:100%" class ="answers-Nb">
+        <div *ngFor="let item of [].constructor(questions.length); let i = index">
+          <div class = "nb">
+            <span>{{i+1}}</span>
           </div>
+          <div class = "nb empty">
+            <span style ="opacity:0">{{i+1}}</span>
+          </div>
+        </div>
       </div>
       <ul class ="question" >
         <li *ngFor = "let item of questions">
