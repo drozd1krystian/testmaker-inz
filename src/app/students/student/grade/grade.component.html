@@ -1,0 +1,21 @@
+<ng-container *ngIf = "!editMode">
+    <td>{{grade.subject}}</td>
+    <td>{{grade.name}}</td>
+    <td>{{grade.grade}}</td>
+    <td>{{grade.points}}</td>
+    <td>{{grade.date}}</td>
+    <td><a class ="btn" (click)="editMode = true">Edytuj</a></td>
+</ng-container>
+
+<!-- Edit Grade View -->
+<ng-container *ngIf = "editMode">
+  <td><input type ="text" [(ngModel)]="grade.subject" value ="{{grade.subject}}"> </td>
+  <td><input type ="text" [(ngModel)]="grade.name" value ="{{grade.name}}"> </td>
+  <td><input type ="text" [(ngModel)]="grade.grade" value ="{{grade.grade}}"> </td>
+  <td><input type ="text" [(ngModel)]="grade.points" value ="{{grade.points}}"> </td>
+  <td><input type ="date" [(ngModel)]="grade.date"></td> 
+  <td>
+    <a class ="btn green" (click)="editGrade()">Potwierdź</a> 
+    <a class ="btn cancel" (click)="editMode = false">Anuluj</a>
+  </td>
+</ng-container>
