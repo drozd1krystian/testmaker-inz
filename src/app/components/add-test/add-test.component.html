@@ -44,7 +44,6 @@
 </div>
 
 <ng-container *ngIf = "showTemplate">
-  
   <ul>
     <li >
       Pierwsza linijka pliku to nazwa przedmiotu oraz po <strong>, </strong>nazwa testu. W następnej lini natomiast     podana jest data. <br>
@@ -60,6 +59,13 @@
   <hr>
   <div class ="img"> 
       <img src="../../../assets/img/fileFormat.PNG" alt="fileFormat">
+  </div>
+</ng-container>
+
+<ng-container *ngIf = "errorReadingFile">
+  <div class="alert" scrollTo>
+    <span class="closebtn" (click) = "showErrorBox()">&times;</span>
+    Błąd oczytu z pliku! Sprawdź dane.
   </div>
 </ng-container>
 

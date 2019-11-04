@@ -18,6 +18,7 @@ export class AddTestComponent implements OnInit {
 
   showTemplate: boolean = true;
   testExist: boolean = false;
+  errorReadingFile: boolean = false;
   constructor(private testService: TestItemService ) { }
 
   ngOnInit() {
@@ -33,83 +34,90 @@ export class AddTestComponent implements OnInit {
     let file:File = inputValue.files[0]; 
     let myReader:FileReader = new FileReader();
 
- 
+    
     myReader.onloadend = () => {
-      // Remove template img
-      this.showTemplate = false;
-      //Get content from file
-      let content = myReader.result.toString();
+      try{
+        // Remove template img
+        this.showTemplate = false;
+        //Get content from file
+        let content = myReader.result.toString();
 
-      // Split content by questions
-      let arrayContent = content.split('#');
+        // Split content by questions
+        let arrayContent = content.split('#');
 
-      // Split question to Question and Answers
-      let arrayQuestions = [];
-      arrayContent.forEach(el => {
-        arrayQuestions.push(el.split('---'));
-      });
+        // Split question to Question and Answers
+        let arrayQuestions = [];
+        arrayContent.forEach(el => {
+          arrayQuestions.push(el.split('---'));
+        });
 
-      // First field is test name and category
-      let testInfo = '';
-      testInfo = arrayQuestions.shift()[0];
-      let testInfoArray = testInfo.split(',');
-      
-      // Get category (test file have name and date)
-      let name = testInfoArray[1].split('\n')[0];
-      name = name.trim();
-      // Replace HTML tags in test name
-      testInfoArray[0] = testInfoArray[0].replace(/<b>/g, '');
-      testInfoArray[0] = testInfoArray[0].replace(/<\/b>/g,'');
-      
-      this.testName = name.replace(/[\n\r]/g, '');;
-      this.testCategory = testInfoArray[0];
+        // First field is test name and category
+        let testInfo = '';
+        testInfo = arrayQuestions.shift()[0];
+        let testInfoArray = testInfo.split(',');
+        
+        // Get category (test file have name and date)
+        let name = testInfoArray[1].split('\n')[0];
+        name = name.trim();
+        // Replace HTML tags in test name
+        testInfoArray[0] = testInfoArray[0].replace(/<b>/g, '');
+        testInfoArray[0] = testInfoArray[0].replace(/<\/b>/g,'');
+        
+        this.testName = name.replace(/[\n\r]/g, '');;
+        this.testCategory = testInfoArray[0];
 
-      arrayQuestions.forEach(el => {
-       // Replace tags in question for HTML <code>
-       el[0] = el[0].replace(/<cs>/g, '<br><code>');
-       el[0] = el[0].replace(/[\n\r]/g, '');
-       el[0] = el[0].replace(/<\/cs>/g, '</code><br>');
-       el[0] = el[0].replace(/<c>/g, '<code>');
-       el[0] = el[0].replace(/<\/c>/g, '</code>');
-       el[0] = el[0].replace("`", "&nbsp;");
+        arrayQuestions.forEach(el => {
+        // Replace tags in question for HTML <code>
+        el[0] = el[0].replace(/<cs>/g, '<br><code>');
+        el[0] = el[0].replace(/[\n\r]/g, '');
+        el[0] = el[0].replace(/<\/cs>/g, '</code><br>');
+        el[0] = el[0].replace(/<c>/g, '<code>');
+        el[0] = el[0].replace(/<\/c>/g, '</code>');
+        el[0] = el[0].replace("`", "&nbsp;");
 
-       // Array for answers
-       let tempArray = [];
+        // Array for answers
+        let tempArray = [];
 
-       // Split answers
-        tempArray = el[1].split('\n');
+        // Split answers
+          tempArray = el[1].split('\n');
 
-        // Remove first empty element
-        tempArray.shift();
+          // Remove first empty element
+          tempArray.shift();
 
-        //Remove last empty element
-        tempArray = tempArray.filter(el => el !='');
+          //Remove last empty element
+          tempArray = tempArray.filter(el => el !='');
 
-        // Add answer tags 'A.' etc
-        tempArray.forEach((el, index) => {
-          tempArray[index] = `${this.answersTags[index]} ${el}`.trim();
+          // Add answer tags 'A.' etc
+          tempArray.forEach((el, index) => {
+            tempArray[index] = `${this.answersTags[index]} ${el}`.trim();
 
-          // Replace with <code>
-          tempArray[index] = tempArray[index].replace(/<c>/g, '<code>');
-          tempArray[index] = tempArray[index].replace(/<\/c>/g, '</code>');
-        })
+            // Replace with <code>
+            tempArray[index] = tempArray[index].replace(/<c>/g, '<code>');
+            tempArray[index] = tempArray[index].replace(/<\/c>/g, '</code>');
+          })
 
-        // Find correct answer
-        let correct = tempArray.findIndex(el => el.includes('+'));
-        tempArray[correct] = tempArray[correct].replace('+', '');
+          // Find correct answer
+          let correct = tempArray.findIndex(el => el.includes('+'));
+          tempArray[correct] = tempArray[correct].replace('+', '');
 
-        // Put to object
-         this.question = {
-           question: el[0],
-           answers: tempArray,
-           correct: this.answersTags[correct].toString(),
-           date: new Date()
-         }
-         this.questions.push(this.question);
-      });
+          // Put to object
+          this.question = {
+            question: el[0],
+            answers: tempArray,
+            correct: this.answersTags[correct].toString(),
+            date: new Date()
+          }
+          this.questions.push(this.question);
+        });
+      } catch(e) {
+        this.questions = [];
+        this.testName = '';
+        this.testCategory = '';
+        this.errorReadingFile = true;
     }
-    myReader.readAsText(file, 'Windows-1250');
-  }
+  } 
+  myReader.readAsText(file, 'Windows-1250');
+}
 
   // Track id of answers items
   indexTracker(index: number, value: any) {
@@ -120,5 +128,10 @@ export class AddTestComponent implements OnInit {
     if(this.testName != '' && this.testCategory != '') {
       this.testService.addTest(this.testName.toUpperCase(), this.testCategory.toUpperCase(), this.questions)
     } 
+  }
+
+  showErrorBox() {
+    this.errorReadingFile = false;
+    this.showTemplate = true;
   }
 }
