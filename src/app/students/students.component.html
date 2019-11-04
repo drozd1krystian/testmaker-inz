@@ -1,4 +1,5 @@
-<div class="card">
+<ng-container *ngIf = "!showAddF">
+  <div class="card">
     <div class="card-content">
       <span class ="card-title">Wyświetl studentów:</span>
       <form  class ="col s6">
@@ -14,21 +15,70 @@
           </div>
           <div class ="input=field col s6">
             <button class ="btn" (click) = "getStudents()">Wyszukaj</button>
+            <button class ="btn green" (click) = "showAddForm()">Dodaj studentów</button>
           </div>
         </div>
       </form>
     </div>
-</div>
-
-<div *ngIf="studentArr?.length > 0 ; else noItems">
-  <ul class ="collection" *ngFor = "let item of studentArr">  
-    <li class="collection-item" >
-      <app-student [student] = "item" [group] = "getSearchValue()"></app-student>
-    </li>
-  </ul>
-</div>
+  </div>
   
+  <div *ngIf="studentArr?.length > 0 ; else noItems">
+    <ul class ="collection" *ngFor = "let item of studentArr">  
+      <li class="collection-item" >
+        <app-student [student] = "item" [group] = "getSearchValue()"></app-student>
+      </li>
+    </ul>
+  </div>
+      
+</ng-container>
+
 <ng-template #noItems>
   <hr>
   <h5>Brak studentów!</h5>
 </ng-template>
+
+
+<!-- Add students form -->
+<ng-container *ngIf = "showAddF">
+  <div class="card">
+    <div class="card-content">
+      <span class ="card-title">Dodaj studentów:
+        <div class ="hoverWrapper secondary-content">
+          <i class="fa fa-exclamation" aria-hidden="true"></i>
+          <div class ="hoverShow secondary-content">
+            Możesz wstawić wielu studentów na raz umieszając ich po ',' np.: <br> 
+            <strong>Jan Kowalski</strong>, <strong>Jan Nowak</strong>. <br> Pamiętaj o tym aby ilość nr. indeksu zgadzała się z ilością studentów.
+          </div>  
+        </div>
+      </span>
+      <form  class ="col s6">
+        <div class="row">
+          <form [formGroup] = "addStudentsForm" validate>
+            <div class="input-field col s12">
+              <textarea id="students" name ="students" class="materialize-textarea validate" formControlName="students" required="" aria-required="true"></textarea>
+              <label>Studenci</label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="indexes" name ="indexes" class="materialize-textarea validate" formControlName="indexes" required="" aria-required="true"></textarea>
+              <label>Indeksy</label>
+            </div>
+              <div class="input-field col s12">
+                <textarea id="students" name ="groupName" class="materialize-textarea validate" formControlName="groupName" required="" aria-required="true"></textarea>
+                <label>Grupa</label>
+              </div>
+          </form>
+          <div class ="input=field col s6">
+            <button class ="btn green" (click) = "addStudents()">Wyślij</button>
+            <button class ="btn cancel" (click) = "showSearchForm(); indexExistError()">Anuluj</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <ng-container *ngIf = "indexExist != ''">
+        <div class="alert" scrollTo>
+          <span class="closebtn" (click) = "indexExistError()">&times;</span>
+          Jeden z indeksów już istnieje w tej grupie (<span >{{indexExist}}</span>)! Wszystkie poprzednie zostały wstawione do bazy.
+        </div>
+    </ng-container>
+  </div>
+</ng-container>

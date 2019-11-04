@@ -26,3 +26,41 @@ form input {
 i {
   cursor: pointer;
 }
+
+/* Buttons */
+.green {
+  margin-left: 1rem;
+}
+
+strong {
+  font-weight: bold;
+}
+
+@media (max-width: 999px){
+  .hoverWrapper{
+    display: none;
+  }
+}
+
+
+@media(min-width: 1000px){
+
+  /* Info text*/
+
+  .hoverWrapper:hover .hoverShow {
+    display:block;
+  }
+
+  .hoverWrapper .hoverShow {
+    display: none;
+    position: absolute;
+    left: 24rem;
+    top: -4rem;
+    
+    background: #333;
+    color: #fff;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+}
