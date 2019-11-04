@@ -74,7 +74,7 @@
         </div>
       </form>
     </div>
-    <ng-container *ngIf = "indexExist != ''">
+    <ng-container *ngIf = "indexExist != '' && indexExist != 'true'">
         <div class="alert" scrollTo>
           <span class="closebtn" (click) = "indexExistError()">&times;</span>
           Jeden z indeksów już istnieje w tej grupie (<span >{{indexExist}}</span>)! Wszystkie poprzednie zostały wstawione do bazy.
