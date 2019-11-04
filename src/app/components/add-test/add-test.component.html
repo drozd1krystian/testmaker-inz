@@ -1,7 +1,7 @@
 <div class="card" >
   <div class="card-content">
     <span class ="card-title">Dodaj Test</span>
-    <form (ngSubmit) = "onSubmit()" class ="col s6">
+    <form #form (ngSubmit) = "onSubmit()" class ="col s6">
       <div class="row">
         <div class="input-field col s12">
           <textarea id="textarea1" name ="question" class="materialize-textarea validate" [(ngModel)]="testName" required="" aria-required="true"></textarea>
@@ -16,7 +16,7 @@
       </div>
       <div class ="input-field col s12">
         Wczytaj pytania z pliku:
-        <input type="file" name="file" class="inputfile" (change)="changeListener($event)" />
+        <input type="file" (click) = "reset()" name="file" class="inputfile" (change)="changeListener($event)" />
       </div>   
       <div class="input-field col s12" *ngIf ="testExist">
         <p class ="error" >
