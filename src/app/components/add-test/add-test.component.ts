@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import {Question} from '../../models/question';
 import {TestItemService} from '../../services/test-item.service';
 
@@ -18,7 +18,11 @@ export class AddTestComponent implements OnInit {
 
   showTemplate: boolean = true;
   testExist: boolean = false;
+
+  @ViewChild('form',{static: false}) formReset: ElementRef;
   errorReadingFile: boolean = false;
+
+
   constructor(private testService: TestItemService ) { }
 
   ngOnInit() {
@@ -133,5 +137,11 @@ export class AddTestComponent implements OnInit {
   showErrorBox() {
     this.errorReadingFile = false;
     this.showTemplate = true;
+  }
+
+  reset(){
+    this.questions = [];
+    this.showTemplate = true;
+    this.formReset.nativeElement.reset();
   }
 }
