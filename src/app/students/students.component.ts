@@ -33,12 +33,25 @@ export class StudentsComponent implements OnInit {
       })
     })
 
-    this.testService.addedStud.subscribe(el => {
-      this.showAddF = el;
-    })
-
+    // Check if doc exist. If yes then remove all students before it from form
     this.testService.indexExist.subscribe(el => {
       this.indexExist = el;
+      if(this.indexExist != ''){
+        // Hold the values from form
+        let tempStudArr = []; let tempIdArr = [];
+        tempStudArr = this.students.split(',');
+        tempIdArr = this.indexes.split(',');
+
+        // Find id of student that exists in database
+        let id = tempStudArr.indexOf(this.indexExist);
+
+        // Remove all values from form before this one student
+        this.addStudentsForm.get('students').setValue( tempStudArr.slice(id-1, tempStudArr.length).join(','));
+        this.addStudentsForm.get('indexes').setValue( tempIdArr.slice(id-1, tempIdArr.length).join(','));
+      }
+      else{
+        this.showAddF = false;
+      }
     })
   }
 
@@ -116,6 +129,10 @@ export class StudentsComponent implements OnInit {
 
     let tempStudArr :  any[] = [];
 
+    // Remove the empty spaces before the names and indexes
+    indexesArr.forEach((el,index) => indexesArr[index] = el.trim());
+    studFormArr.forEach((el,index) => studFormArr[index] = el.trim());
+
     if((studFormArr.length > 0 && indexesArr.length > 0 && groupName != '') 
       && studFormArr.length == indexesArr.length){
         studFormArr.forEach((el,index) => {
@@ -128,7 +145,7 @@ export class StudentsComponent implements OnInit {
             surname: splitNames[1],
           }
         })
-        this.testService.addStudents(tempStudArr, indexesArr, groupName);
+      this.testService.addStudents(tempStudArr, indexesArr, groupName);
       }
   }
 

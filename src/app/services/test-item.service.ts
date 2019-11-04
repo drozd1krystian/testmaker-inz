@@ -90,14 +90,12 @@ export class TestItemService {
       let StudDoc = docRef.collection('students').doc(indexesArr[index]);
       StudDoc.get().subscribe(doc => {
         if(doc.exists){
-          this.addedStud.emit(true);
           this.indexExist.emit(indexesArr[index]);
           checker = false;
           return;
         }
         else if(checker) {
           docRef.collection('students').doc(indexesArr[index]).set(el);
-          this.addedStud.emit(false);
         }
       })
       if(!checker) {
