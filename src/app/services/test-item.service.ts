@@ -15,6 +15,12 @@ export class TestItemService {
   // Show error if test exist
   @Output() testExist: EventEmitter<any> = new EventEmitter();
 
+  // Return if added students
+  @Output() addedStud: EventEmitter<any> = new EventEmitter();
+
+  // Student index already exist
+  @Output() indexExist: EventEmitter<any> = new EventEmitter();
+
   testsCollection: AngularFirestoreCollection<Test>;
   tests: Observable<any>;
 
@@ -46,8 +52,58 @@ export class TestItemService {
   getGroups() {
     return this.firestore.collection('Students').snapshotChanges();
   }
+
   addItem(testId, question) {
     this.testsCollection.doc(testId).collection('Questions').add(question);
+  }
+
+  addTest(testId: string, testCategory:string, questionList) {
+    testId = testId.toUpperCase();
+    const testRef = this.firestore.collection('Tests').doc(testId);
+    // Check if test exist
+    testRef.get().subscribe(doc => {
+      if(doc.exists) {
+        this.testExist.emit(true);
+      } else {
+        this.firestore.collection('Tests').doc(testId).set({
+          Category: testCategory.toUpperCase()
+        });
+        if(questionList.length > 1) {
+          let batch = this.firestore.firestore.batch();
+          questionList.forEach( (el,index) => {
+            let id = this.firestore.createId();
+            let questionsRef = this.firestore.collection('Tests').doc(testId).collection('Questions').doc(id).ref;
+            batch.set(questionsRef, el);
+          })
+          batch.commit();
+        }
+        this.router.navigate(['/test', testId]);
+      }
+    })
+  }
+
+  addStudents(studArr, indexesArr, groupName) {
+    const docRef = this.firestore.collection('Students').doc(groupName);
+    // If at least one document exist return
+    let checker = true;
+    studArr.forEach(  (el,index) => {  
+      let StudDoc = docRef.collection('students').doc(indexesArr[index]);
+      StudDoc.get().subscribe(doc => {
+        if(doc.exists){
+          this.addedStud.emit(true);
+          this.indexExist.emit(indexesArr[index]);
+          checker = false;
+          return;
+        }
+        else if(checker) {
+          docRef.collection('students').doc(indexesArr[index]).set(el);
+          this.addedStud.emit(false);
+        }
+      })
+      if(!checker) {
+        return;
+      }
+    }) 
   }
 
   updateItem(testId, questionId, question){
@@ -62,28 +118,4 @@ export class TestItemService {
     this.testsCollection.doc(testId).collection('Questions').doc(questionId).delete();
   }
 
-  addTest(testId: string, testCategory:string, questionList) {
-    const testRef = this.firestore.collection('Tests').doc(testId);
-    // Check if test exist
-    testRef.get().subscribe(doc => {
-      if(doc.exists) {
-        this.testExist.emit(true);
-      } else {
-        this.firestore.collection('Tests').doc(testId).set({
-          Category: testCategory.toUpperCase()
-        });
-        if(questionList.length > 1) {
-          let batch = this.firestore.firestore.batch();
-          questionList.forEach( (el,index) => {
-            let id = this.firestore.createId();
-            let questionsRef = this.firestore.collection('Tests').doc(testId.toUpperCase()).collection('Questions').doc(id).ref;
-            batch.set(questionsRef, el);
-          })
-          batch.commit();
-        }
-        this.router.navigate(['/test', testId]);
-      }
-    })
-  }
-  
 }

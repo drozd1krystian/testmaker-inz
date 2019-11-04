@@ -14,6 +14,10 @@ export class StudentsComponent implements OnInit {
   groups: any[] = [];
   showDropDown: boolean = false;
 
+  // Add Form
+  showAddF: boolean = false;
+  addStudentsForm: FormGroup
+  indexExist: string = '';
   // Students
   studentArr : Student[] = [];
 
@@ -21,13 +25,20 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit() {
     this.initForm(); 
-
     this.testService.getGroups().subscribe(arr => {
       this.groups = arr.map(el => {
         return {
           id: el.payload.doc.id
         }
       })
+    })
+
+    this.testService.addedStud.subscribe(el => {
+      this.showAddF = el;
+    })
+
+    this.testService.indexExist.subscribe(el => {
+      this.indexExist = el;
     })
   }
 
@@ -36,6 +47,14 @@ export class StudentsComponent implements OnInit {
     return this.groupForm = this.fb.group({
       search: [null]
     })
+  }
+
+  initAddForm(): FormGroup {
+    return this.addStudentsForm = this.fb.group({
+      students: '',
+      indexes: '',
+      groupName: ''
+    });
   }
 
   openDropDown() {
@@ -66,5 +85,54 @@ export class StudentsComponent implements OnInit {
         })
       })
     } 
+  }
+
+  showAddForm() {
+    this.showAddF = true;
+    this.initAddForm();
+  }
+
+  showSearchForm() {
+    this.showAddF = false;
+    this.initForm();
+  }
+
+  // Add Form
+  get students() {
+    return this.addStudentsForm.get('students').value;
+  }
+  get indexes() {
+    return this.addStudentsForm.get('indexes').value;
+  }
+  get groupName() {
+    return this.addStudentsForm.get('groupName').value;
+  }
+
+  addStudents(){
+    let studFormArr = this.students.split(',');
+    let indexesArr = this.indexes.split(',');
+    let groupName = this.groupName;
+    let splitNames: any[] = [];
+
+    let tempStudArr :  any[] = [];
+
+    if((studFormArr.length > 0 && indexesArr.length > 0 && groupName != '') 
+      && studFormArr.length == indexesArr.length){
+        studFormArr.forEach((el,index) => {
+          splitNames = el.split(' ');
+          if(splitNames[0] == ''){
+            splitNames.shift();
+          }
+          tempStudArr[index] = {
+            name: splitNames[0],
+            surname: splitNames[1],
+          }
+        })
+        this.testService.addStudents(tempStudArr, indexesArr, groupName);
+      }
+  }
+
+  indexExistError(){
+    this.indexExist = '';
   }
 }

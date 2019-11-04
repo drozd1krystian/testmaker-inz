@@ -63,7 +63,7 @@ kendo-pdf-export .page-break:last-child {
   display:none;
 }
 
-kendo-pdf-export .answers-Nb > div:nth-child(10n) .empty{
+kendo-pdf-export .answers-Nb > div:nth-child(9n) .empty{
   color: #000;
   border-right: 0.4px solid rgb(228, 225, 225);
 }
