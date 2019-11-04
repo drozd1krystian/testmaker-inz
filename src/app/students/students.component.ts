@@ -36,7 +36,7 @@ export class StudentsComponent implements OnInit {
     // Check if doc exist. If yes then remove all students before it from form
     this.testService.indexExist.subscribe(el => {
       this.indexExist = el;
-      if(this.indexExist != ''){
+      if(this.indexExist != '' && this.indexExist != 'true'){
         // Hold the values from form
         let tempStudArr = []; let tempIdArr = [];
         tempStudArr = this.students.split(',');
@@ -48,6 +48,8 @@ export class StudentsComponent implements OnInit {
         // Remove all values from form before this one student
         this.addStudentsForm.get('students').setValue( tempStudArr.slice(id-1, tempStudArr.length).join(','));
         this.addStudentsForm.get('indexes').setValue( tempIdArr.slice(id-1, tempIdArr.length).join(','));
+      } else if(this.indexExist = 'true'){
+        this.showAddF = false;
       }
       else{
         this.showAddF = false;

@@ -84,24 +84,33 @@ export class TestItemService {
 
   addStudents(studArr, indexesArr, groupName) {
     const docRef = this.firestore.collection('Students').doc(groupName);
-    // If at least one document exist return
-    let checker = true;
-    studArr.forEach(  (el,index) => {  
-      let StudDoc = docRef.collection('students').doc(indexesArr[index]);
-      StudDoc.get().subscribe(doc => {
-        if(doc.exists){
-          this.indexExist.emit(indexesArr[index]);
-          checker = false;
+    docRef.get().subscribe(doc => {
+      if(doc.exists){}
+      else{
+        docRef.set({name:groupName});
+      }
+      // If at least one document exist return
+      let checker = true;
+      studArr.forEach(  (el,index) => {  
+        let StudDoc = docRef.collection('students').doc(indexesArr[index]);
+        StudDoc.get().subscribe(doc => {
+          if(doc.exists){
+            this.indexExist.emit(indexesArr[index]);
+            checker = false;
+            return;
+          }
+          else if(checker) {
+            docRef.collection('students').doc(indexesArr[index]).set(el);
+          }
+        })
+        if(!checker) {
           return;
         }
-        else if(checker) {
-          docRef.collection('students').doc(indexesArr[index]).set(el);
+        else{
+          this.indexExist.emit('true');
         }
+      }) 
       })
-      if(!checker) {
-        return;
-      }
-    }) 
   }
 
   updateItem(testId, questionId, question){
