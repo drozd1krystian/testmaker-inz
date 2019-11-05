@@ -59,16 +59,20 @@ kendo-pdf-export {
   line-height: 1.7rem;
 }
 
-kendo-pdf-export .page-break:last-child {
-  display:none;
+.question {
+  columns: 2;
+
+}
+.answer, .question-text, .name-surname {
+  font-size: 1rem;
 }
 
-kendo-pdf-export .answers-Nb > div:nth-child(9n) .empty{
+.answers-Nb > div:nth-child(17n) .empty{
   color: #000;
   border-right: 0.4px solid rgb(228, 225, 225);
 }
 
-kendo-pdf-export .nb span{
+.nb span{
   font-weight: bold;
   font-size: 1rem;
 }
@@ -76,4 +80,9 @@ kendo-pdf-export .nb span{
 /* Remove input margin for Drop Down */
 form input {
   margin-bottom: 0;
+}
+
+
+@media print{
+  .page-break {page-break-before:always;}
 }

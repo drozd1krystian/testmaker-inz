@@ -25,7 +25,7 @@ export class TestComponent implements OnInit {
   showDropDown: boolean = false;
 
   // Show add question form:
-  makePDF: boolean = false;
+  makeTest: boolean = false;
   show: boolean = false;
 
   students : Student[] = [];
@@ -73,6 +73,10 @@ export class TestComponent implements OnInit {
         } 
       })
     })
+
+    window.addEventListener("popstate", function(e) {
+        window.location.reload();
+    });
   }
 
   toggleForm() {
@@ -80,13 +84,13 @@ export class TestComponent implements OnInit {
     this.testService.show.emit(this.show);
   }
 
-  togglePdf(){
-    this.makePDF = !this.makePDF;
+  toggleTest(){
+    this.makeTest = !this.makeTest;
   }
 
-  generatePdf() {
+  generateTest() {
     if(this.groups.some(el => el.id == this.getSearchValue())) {
-      this.togglePdf()
+      this.toggleTest();
       this.testService.getStudents(this.getSearchValue()).subscribe(arr => {
         this.students = arr.map(q => {
           return {
@@ -98,9 +102,12 @@ export class TestComponent implements OnInit {
           this.students[index].qr = this.makeQR(el);
         })
       })
+       document.querySelector('header').remove();
+       document.querySelector('.header').remove();
+       document.querySelector('.card').remove();
     }
     else {
-      this.makePDF = false;
+      this.makeTest = false;
     }
   }
 
