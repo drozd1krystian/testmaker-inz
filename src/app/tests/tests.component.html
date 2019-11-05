@@ -6,7 +6,7 @@
       </form>
 
       <div class="tests-container-dropdown" *ngIf = "(showDropDown || search)">
-        <div (click)='selectValue(item.name)' *ngFor = "let item of tests | searchFilter: getSearchValue(): 'name'">
+        <div (click)='selectValue(item.id)' *ngFor = "let item of tests | searchFilter: getSearchValue(): 'id'">
           <span class ="text-bold">{{item.id}}</span>
           <span class ="test-label">{{item.Category}}</span>
         </div>
@@ -14,7 +14,7 @@
      
     <a [routerLink]="['/newtest']" class ="btn btn-green">Dodaj test</a>
     <div *ngIf="tests?.length > 0; else noItems">
-      <ul class ="collection" *ngFor = "let item of tests | searchFilter: getSearchValue(): 'name'">
+      <ul class ="collection" *ngFor = "let item of tests | searchFilter: getSearchValue(): 'id'">
         <a [routerLink]="['/test', item.id]" class ="list-item">
           <li class="collection-item" >
             <span class ="test-label">Nazwa testu:</span> {{item.id}} <br>

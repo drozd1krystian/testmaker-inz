@@ -14,28 +14,29 @@ a {
   }
 }
 
-kendo-pdf-export {
-  font-size: 0.7rem;
-  font-family: "Roboto";
-}
 
 .question > li {
   margin-bottom: 0.6rem;
+}
+
+.question ul {
+  margin-top: 0.5rem;
 }
 
 .answers-Nb {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
 .nb {
-  width: 1.7rem;
+  width: 2rem;
   border: 0.4px solid rgb(228, 225, 225);
   display: inline-block; 
   text-align: center;
   margin-bottom: 0.7rem;
-  
+  font-size: 1.6rem;
 }
 
 .empty {
@@ -59,16 +60,20 @@ kendo-pdf-export {
   line-height: 1.7rem;
 }
 
-kendo-pdf-export .page-break:last-child {
-  display:none;
+.question {
+  columns: 2;
+
+}
+.answer, .question-text, .name-surname {
+  font-size: 1rem;
 }
 
-kendo-pdf-export .answers-Nb > div:nth-child(9n) .empty{
+.answers-Nb > div:nth-child(10n) .empty{
   color: #000;
   border-right: 0.4px solid rgb(228, 225, 225);
 }
 
-kendo-pdf-export .nb span{
+.nb span{
   font-weight: bold;
   font-size: 1rem;
 }
@@ -76,4 +81,9 @@ kendo-pdf-export .nb span{
 /* Remove input margin for Drop Down */
 form input {
   margin-bottom: 0;
+}
+
+
+@media print{
+  .page-break {page-break-before:always;}
 }

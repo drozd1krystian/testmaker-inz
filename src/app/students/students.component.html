@@ -20,6 +20,12 @@
         </div>
       </form>
     </div>
+    <ng-container *ngIf = "addedStudents">
+      <div class="alert alertGood" scrollTo>
+        <span class="closebtn" (click) = "closeAlertGood()">&times;</span>
+        Pomyślnie dodano studentów.
+      </div>
+    </ng-container>
   </div>
   
   <div *ngIf="studentArr?.length > 0 ; else noItems">

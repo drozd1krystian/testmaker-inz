@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Student } from '../../models/student'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
+import { Question }from '../../models/question';
 
 @Component({
   selector: 'app-test',
@@ -15,21 +16,22 @@ export class TestComponent implements OnInit {
   // Id from link
   doc_id: any;
   singleTest: any;
-  questions: any[];
+  questions: Question[];
   correctAnswers: any[] = [];
   
-
   // Search group Form
   groupForm: FormGroup;
   groups: any[] = [];
   showDropDown: boolean = false;
 
   // Show add question form:
-  makePDF: boolean = false;
+  makeTest: boolean = false;
   show: boolean = false;
 
   students : Student[] = [];
-  
+
+  answersTags: string[] = ['A.', 'B.', 'C.', 'D.', 'E.', 'F.', 'G.', 'H.'];
+
   constructor(private testService: TestItemService, 
       private _Activatedroute:ActivatedRoute, 
       private fb: FormBuilder) {
@@ -60,7 +62,7 @@ export class TestComponent implements OnInit {
       })
       // Add question number and push correct answer to array
       this.questions.forEach((el,index) => {
-        this.questions[index].question = `${index + 1}. ${el.question}`;
+       // this.questions[index].question = `${index + 1}. ${el.question}`;
         this.correctAnswers[index] = this.questions[index].correct;
       })
     })
@@ -73,6 +75,10 @@ export class TestComponent implements OnInit {
         } 
       })
     })
+
+    window.addEventListener("popstate", function(e) {
+        window.location.reload();
+    });
   }
 
   toggleForm() {
@@ -80,62 +86,109 @@ export class TestComponent implements OnInit {
     this.testService.show.emit(this.show);
   }
 
-  togglePdf(){
-    this.makePDF = !this.makePDF;
+  toggleTest(){
+    this.makeTest = !this.makeTest;
   }
 
-  generatePdf() {
+  generateTest() {
     if(this.groups.some(el => el.id == this.getSearchValue())) {
-      this.togglePdf()
+      this.toggleTest();
       this.testService.getStudents(this.getSearchValue()).subscribe(arr => {
         this.students = arr.map(q => {
           return {
             index: q.payload.doc.id,
             ...q.payload.doc.data(),
           } as Student
-        })
+        });
+        // Deep copy and shuffle the questions Array then make QR for student
         this.students.forEach((el,index) => {
-          this.students[index].qr = this.makeQR(el);
+          let shuffledQuestions: Question[] = [];
+
+          // 1. Deep copy questions
+          let questionsCopy: Question[] = this.copyQuestions();
+          // 2. Shuffle questions
+          shuffledQuestions = this.shuffleArray(questionsCopy);
+          // 3. Shuffle answers
+          shuffledQuestions.forEach(el => el.answers = this.shuffleArray(el.answers));
+          // 4. Change correct answer and tangs in answers
+          this.changeAnswerTags(shuffledQuestions);
+          // 5. Add shuffled questions to student
+          this.students[index].questions = shuffledQuestions;
+          // 5. Make QR code 
+          this.students[index].qr = this.makeQR(el, shuffledQuestions);
         })
       })
+      // Remove header, testname and form from DOM
+       document.querySelector('header').remove();
+       document.querySelector('.header').remove();
+       document.querySelector('.card').remove();
     }
     else {
-      this.makePDF = false;
+      this.makeTest = false;
     }
   }
 
-  makeAnswersKey(): String {
+  copyQuestions() {
+    let questionsCopy:Question[] = [];
+    // Deep copy questions array
+    this.questions.forEach((el,index) => {
+      questionsCopy[index]= Object.assign({}, el , JSON.parse(JSON.stringify(el)));
+    });
+    return questionsCopy;
+  }
+
+  changeAnswerTags(array: Question[]){
+    array = array.map((el,index) => {
+      // Find correct answer
+      let correctId = el.answers.findIndex(ans => ans.includes(el.correct));
+      el.answers = el.answers.map((ans,index) => {
+        ans = ans.slice(2,ans.length)
+        return `${this.answersTags[index]} ${ans}`;
+      })
+      el.correct = this.answersTags[correctId];
+      el.question = `${index+1}. ${el.question}`
+      return el;
+    })
+  }
+
+  shuffleArray(array){
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
+
+  makeAnswersKey(questions: Question[]): String {
     let correctStr = '';
-    let temp = ''
-    this.correctAnswers.forEach(el => {
-      temp = el.slice(0,1);
-      correctStr += temp;
+    questions.forEach(el => {
+      correctStr += el.correct.slice(0,1);
     }) 
     return correctStr;
   }
 
   encryptTheKey(key) {
     try {
-      return CryptoJS.AES.encrypt(JSON.stringify(key), 'karakan123').toString();
+      return CryptoJS.AES.encrypt(JSON.stringify(key), 'testmaker-inz').toString();
     } catch (e) {
       console.log(e);
     }
   }
 
-  makeQR(stud) {
-    let answerKey = this.makeAnswersKey();
+  makeQR(stud, questions: Question[]) {
+    let answerKey = this.makeAnswersKey(questions);
     return this.encryptTheKey(`${answerKey},${stud.index},${this.getSearchValue()},${stud.name},${stud.surname},${this.doc_id}`);
   }
-
-  // Removes the last two page breaks - after the last student
-  removeBreak(){
-    let elem = document.querySelectorAll('.page-break');
-    if(elem.length > 2){
-      elem[elem.length - 1 ].remove();
-      elem[elem.length - 2 ].remove();
-    }
-  }
-  
 
   // Search bar 
   initForm(): FormGroup {
@@ -160,4 +213,5 @@ export class TestComponent implements OnInit {
     this.groupForm.patchValue({"search": value});
     this.showDropDown = false;
   }
+
 }
