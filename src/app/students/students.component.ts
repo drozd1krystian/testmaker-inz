@@ -18,6 +18,7 @@ export class StudentsComponent implements OnInit {
   showAddF: boolean = false;
   addStudentsForm: FormGroup
   indexExist: string = '';
+  addedStudents: boolean = false;
   // Students
   studentArr : Student[] = [];
 
@@ -31,7 +32,7 @@ export class StudentsComponent implements OnInit {
           id: el.payload.doc.id
         }
       })
-    })
+    });
 
     // Check if doc exist. If yes then remove all students before it from form
     this.testService.indexExist.subscribe(el => {
@@ -50,11 +51,12 @@ export class StudentsComponent implements OnInit {
         this.addStudentsForm.get('indexes').setValue( tempIdArr.slice(id-1, tempIdArr.length).join(','));
       } else if(this.indexExist = 'true'){
         this.showAddF = false;
+        this.addedStudents = true;
       }
       else{
         this.showAddF = false;
       }
-    })
+    });
   }
 
   // Search bar 
@@ -153,5 +155,9 @@ export class StudentsComponent implements OnInit {
 
   indexExistError(){
     this.indexExist = '';
+  }
+
+  closeAlertGood() {
+    this.addedStudents = false;
   }
 }

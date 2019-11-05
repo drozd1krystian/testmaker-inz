@@ -61,7 +61,7 @@
       </div>
     </div>
     <ul class ="question" >
-      <li *ngFor = "let item of questions">
+      <li *ngFor = "let item of student.questions">
         <span [innerHTML] = "item.question" class = "question-text"></span>
         <ul>
           <li *ngFor = "let answer of item.answers">

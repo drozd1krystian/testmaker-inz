@@ -16,6 +16,24 @@ span {
   display:none;
 }
 
+/* Info box */
 strong {
   font-weight: bold;
+}
+
+.img {
+  margin-bottom: 1rem;
+}
+
+h5 {
+  text-align: center;
+}
+
+.info {
+  background-color:#F4C095;
+  color: #fff;
+  padding: 0.5rem;
+}
+.info ul {
+  list-style: disc !important;
 }
