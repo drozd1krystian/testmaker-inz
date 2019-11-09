@@ -13,7 +13,7 @@ export class QuestionComponent implements OnInit {
   @Input() questionId;
   @Input() correct: string;
   @Input() question: string;
-  @Input() answers: String[];
+  @Input() answers: String[] = [];
   @Input() qNr;
 
   // Variables

@@ -1,12 +1,35 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule, FormsModule,  } from '@angular/forms';
+import { TestItemService } from './services/test-item.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchFilterPipe } from './shared/filter-pipe';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from 'src/environments/environment';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        SearchFilterPipe
       ],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        BrowserAnimationsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        AngularFireDatabaseModule,
+    ],
+    providers: [TestItemService],
+    schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 
@@ -22,10 +45,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('test-maker');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('test-maker app is running!');
-  });
 });

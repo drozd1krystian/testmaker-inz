@@ -17,7 +17,7 @@
       <ul class ="collection" *ngFor = "let item of tests | searchFilter: getSearchValue(): 'id'">
         <a [routerLink]="['/test', item.id]" class ="list-item">
           <li class="collection-item" >
-            <span class ="test-label">Nazwa testu:</span> {{item.id}} <br>
+            <span class ="test-label">Nazwa testu: </span> <span class ="id-label">{{item.id}}</span>  <br>
             <span class ="test-label">Przedmiot:</span> {{item.Category}} 
           </li>
         </a>

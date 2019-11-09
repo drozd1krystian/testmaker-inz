@@ -12,7 +12,6 @@ export class StudentComponent implements OnInit {
   @Input() student: Student;
   @Input() group: string;
   showDetails: boolean = false;
-  editMode: boolean = false;
   constructor(private testService: TestItemService) { }
 
   ngOnInit() {
@@ -25,13 +24,13 @@ export class StudentComponent implements OnInit {
           return {
             id: el.payload.doc.id,
             ...el.payload.doc.data()
-          }
+          } as Grade
         }) 
       this.showDetails = true;
       })
     } else {
       this.showDetails = false;
-    }
+    } 
   }
 
 }

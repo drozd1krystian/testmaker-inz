@@ -17,7 +17,6 @@ export class TestComponent implements OnInit {
   doc_id: any;
   singleTest: any;
   questions: Question[];
-  correctAnswers: any[] = [];
   
   // Search group Form
   groupForm: FormGroup;
@@ -37,15 +36,14 @@ export class TestComponent implements OnInit {
       private fb: FormBuilder) {
 
       //Read test id from router
-      this.doc_id = this._Activatedroute.snapshot.paramMap.get("id");
+      this.getIdFromRouter();
+
       this.initForm();    
    }
 
   ngOnInit() {
     // Get single tast data from firestore
-    this.testService.getSingleTest(this.doc_id).subscribe(el => {
-      this.singleTest =  el;
-    });   
+    this.getSignleTestData();
 
     // Subscribe to event that emits if form should be displayed
     this.testService.show.subscribe(el => {
@@ -53,21 +51,26 @@ export class TestComponent implements OnInit {
     })
 
     //Get questions from test
-    this.testService.getQuestions(this.doc_id).subscribe (arr => {
-      this.questions = arr.map(q => {
-        return {
-          id: q.payload.doc.id,
-          ...q.payload.doc.data()
-        }
-      })
-      // Add question number and push correct answer to array
-      this.questions.forEach((el,index) => {
-       // this.questions[index].question = `${index + 1}. ${el.question}`;
-        this.correctAnswers[index] = this.questions[index].correct;
-      })
-    })
+    this.getQuestions();
 
     // Get group names
+    this.getGroups();
+
+    window.addEventListener("popstate", function(e) {
+        window.location.reload();
+    });
+  }
+
+  //  Get Data From Service
+  getIdFromRouter(){
+    this.doc_id = this._Activatedroute.snapshot.paramMap.get("id");
+  }
+  getSignleTestData(){
+    this.testService.getSingleTest(this.doc_id).subscribe(el => {
+      this.singleTest =  el;
+    });   
+  }
+  getGroups() {
     this.testService.getGroups().subscribe(gr => {
       this.groups = gr.map(test => {
         return {
@@ -75,12 +78,19 @@ export class TestComponent implements OnInit {
         } 
       })
     })
-
-    window.addEventListener("popstate", function(e) {
-        window.location.reload();
+  }
+  getQuestions() {
+    this.testService.getQuestions(this.doc_id).subscribe (arr => {
+      this.questions = arr.map(q => {
+        return {
+          id: q.payload.doc.id,
+          ...q.payload.doc.data()
+        }
+      })
     });
   }
 
+  // Toggle Forms
   toggleForm() {
     this.show == true ? this.show = false : this.show = true;
     this.testService.show.emit(this.show);
@@ -103,7 +113,6 @@ export class TestComponent implements OnInit {
         // Deep copy and shuffle the questions Array then make QR for student
         this.students.forEach((el,index) => {
           let shuffledQuestions: Question[] = [];
-
           // 1. Deep copy questions
           let questionsCopy: Question[] = this.copyQuestions();
           // 2. Shuffle questions
@@ -170,11 +179,7 @@ export class TestComponent implements OnInit {
   }
 
   makeAnswersKey(questions: Question[]): String {
-    let correctStr = '';
-    questions.forEach(el => {
-      correctStr += el.correct.slice(0,1);
-    }) 
-    return correctStr;
+    return questions.map(el => el.correct.slice(0,1)).join('');
   }
 
   encryptTheKey(key) {
