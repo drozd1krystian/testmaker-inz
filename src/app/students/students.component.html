@@ -14,7 +14,7 @@
             </div>
           </div>
           <div class ="input=field col s6">
-            <button class ="btn" (click) = "getStudents()">Wyszukaj</button>
+            <button type ="submit" class ="btn" (click) = "getStudents()">Wyszukaj</button>
             <button class ="btn green" (click) = "showAddForm()">Dodaj studentów</button>
           </div>
         </div>
@@ -85,6 +85,18 @@
           <span class="closebtn" (click) = "indexExistError()">&times;</span>
           Jeden z indeksów już istnieje w tej grupie (<span >{{indexExist}}</span>)! Wszystkie poprzednie zostały wstawione do bazy.
         </div>
+    </ng-container>
+    <ng-container *ngIf = "smthWrong != ''">
+      <div class="alert" scrollTo>
+        <span class="closebtn" (click) = "closeError()">&times;</span>
+        Przy jednym z studentów brakuje imienia lub nazwiska! {{smthWrong}} ...?
+      </div>
+    </ng-container>
+    <ng-container *ngIf = "idLengthError">
+      <div class="alert" scrollTo>
+        <span class="closebtn" (click) = "closeIdError()">&times;</span>
+        Liczba nr. indeksu nie zgadza się z liczbą studentów!
+      </div>
     </ng-container>
   </div>
 </ng-container>

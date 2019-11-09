@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../models/student'
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { TestItemService } from '../services/test-item.service';
 
 @Component({
@@ -18,7 +18,9 @@ export class StudentsComponent implements OnInit {
   showAddF: boolean = false;
   addStudentsForm: FormGroup
   indexExist: string = '';
+  smthWrong: string = '';
   addedStudents: boolean = false;
+  idLengthError: boolean = false;
   // Students
   studentArr : Student[] = [];
 
@@ -126,37 +128,48 @@ export class StudentsComponent implements OnInit {
   }
 
   addStudents(){
-    let studFormArr = this.students.split(',');
-    let indexesArr = this.indexes.split(',');
-    let groupName = this.groupName;
-    let splitNames: any[] = [];
+    if(this.students.length > 0 && this.indexes.length > 0) {
+      let studFormArr = this.students.split(',');
+      let indexesArr = this.indexes.split(',');
+      let groupName = this.groupName;
+      let splitNames: any[] = [];
+      let checker = true;
+      let tempStudArr :  any[] = [];
 
-    let tempStudArr :  any[] = [];
+      // Remove the empty spaces before the names and indexes
+      indexesArr.forEach((el,index) => indexesArr[index] = el.trim());
+      studFormArr.forEach((el,index) => studFormArr[index] = el.trim());
 
-    // Remove the empty spaces before the names and indexes
-    indexesArr.forEach((el,index) => indexesArr[index] = el.trim());
-    studFormArr.forEach((el,index) => studFormArr[index] = el.trim());
-
-    if((studFormArr.length > 0 && indexesArr.length > 0 && groupName != '') 
-      && studFormArr.length == indexesArr.length){
-        studFormArr.forEach((el,index) => {
-          splitNames = el.split(' ');
-          if(splitNames[0] == ''){
-            splitNames.shift();
-          }
-          tempStudArr[index] = {
-            name: splitNames[0],
-            surname: splitNames[1],
-          }
-        })
-      this.testService.addStudents(tempStudArr, indexesArr, groupName);
-      }
+      if(indexesArr.length != studFormArr.length && (indexesArr.length > 0 && studFormArr.length > 1)) { this.idLengthError = true; return;}
+      if((studFormArr.length > 0 && indexesArr.length > 0 && groupName != '') 
+        && studFormArr.length == indexesArr.length){
+          studFormArr.forEach((el,index) => {
+            splitNames = el.split(' ');
+            if(splitNames[0] == ''){
+              splitNames.shift();
+            }
+            if(splitNames.length < 2) { checker = false; this.smthWrong = splitNames[0]; return; }
+            tempStudArr[index] = {
+              name: splitNames[0],
+              surname: splitNames[1],
+            }
+          })
+        if(!checker){ return;}
+        this.testService.addStudents(tempStudArr, indexesArr, groupName);
+        }
+    }  
   }
 
   indexExistError(){
     this.indexExist = '';
   }
 
+  closeError(){
+    this.smthWrong = '';
+  }
+  closeIdError(){
+    this.idLengthError = false;
+  }
   closeAlertGood() {
     this.addedStudents = false;
   }

@@ -11,14 +11,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class TestsComponent implements OnInit, OnDestroy {
 
-  tests: Test[];
+  tests: Test[] = [];
   testForm: FormGroup;
   showDropDown = false;
   search: string
 
-  constructor(private testService: TestItemService, private fb: FormBuilder ) { 
+  constructor(private testService: TestItemService, private fb: FormBuilder ) {
     this.initForm();
-    this.ngOnInit();
   }
 
   ngOnInit() {

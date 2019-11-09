@@ -11,6 +11,11 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: "Arial";
+  src: url("/assets/fonts/Arial/Arial.ttf") format("truetype");
+}
+
 :root {
   --primary-color : #26a69a;
   --primary-hover : #2ec9b9;
@@ -21,7 +26,6 @@
 
 }
 body {
-  font-family: 'Arial', sans-serif;
   overflow:auto;
   margin: 0;
   padding: 0;
