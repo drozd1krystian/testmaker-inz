@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TestItemService', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    
     imports: [
       AngularFireModule.initializeApp(environment.firebase),
       AngularFirestoreModule,
@@ -34,6 +33,4 @@ describe('TestItemService', () => {
       }
     });
   });
-
-
 });

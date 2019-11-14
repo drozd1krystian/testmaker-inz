@@ -9,16 +9,12 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { TestItemService } from 'src/app/services/test-item.service';
 import { SearchFilterPipe } from 'src/app/shared/filter-pipe';
-
-import { Component, Input, DebugElement, Injectable, inject, Output } from '@angular/core';
 import { QRCodeModule } from 'angular2-qrcode';
 import { Question } from 'src/app/models/question';
 import * as CryptoJS from 'crypto-js';
 import { Student } from 'src/app/models/student';
 import { QuestionComponent } from './question/question.component';
 import { AddQuestionComponent } from 'src/app/components/add-question/add-question.component';
-import { EventEmitter } from 'events';
-
 
 
 describe('TestComponent', () => {
