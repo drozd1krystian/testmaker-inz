@@ -11,7 +11,6 @@ export interface Student {
 
 export interface Grade {
   id: string,
-  subject?: string,
   grade?: string,
   name?:string,
   points?: string,

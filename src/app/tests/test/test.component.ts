@@ -32,7 +32,7 @@ export class TestComponent implements OnInit {
   answersTags: string[] = ['A.', 'B.', 'C.', 'D.', 'E.', 'F.', 'G.', 'H.'];
 
   constructor(private testService: TestItemService, 
-      private _Activatedroute:ActivatedRoute, 
+      private Activatedroute:ActivatedRoute, 
       private fb: FormBuilder) {
 
       //Read test id from router
@@ -63,7 +63,7 @@ export class TestComponent implements OnInit {
 
   //  Get Data From Service
   getIdFromRouter(){
-    this.doc_id = this._Activatedroute.snapshot.paramMap.get("id");
+    this.doc_id = this.Activatedroute.snapshot.paramMap.get("id");
   }
   getSignleTestData(){
     this.testService.getSingleTest(this.doc_id).subscribe(el => {
@@ -85,7 +85,7 @@ export class TestComponent implements OnInit {
         return {
           id: q.payload.doc.id,
           ...q.payload.doc.data()
-        }
+        } as Question;
       })
     });
   }
@@ -165,7 +165,7 @@ export class TestComponent implements OnInit {
 
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-  
+
       // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;

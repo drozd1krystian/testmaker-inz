@@ -26,7 +26,7 @@ import { TestComponent } from './tests/test/test.component';
 import { QuestionComponent } from './tests/test/question/question.component';
 
 //Routring
-import { RouterModule, Routes, Scroll } from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 import { AddQuestionComponent } from './components/add-question/add-question.component';
 import { AddTestComponent } from './components/add-test/add-test.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +36,7 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { StudentsComponent } from './students/students.component';
 import { StudentComponent } from './students/student/student.component';
 import { GradeComponent } from './students/student/grade/grade.component';
+import { DatePipe } from '@angular/common';
 
 const appRoutes: Routes = [
   {path: 'test/:id', component: TestComponent},
@@ -74,7 +75,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     QRCodeModule,
   ],
-  providers: [TestItemService],
+  providers: [TestItemService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

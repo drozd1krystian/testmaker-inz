@@ -25,7 +25,6 @@ describe('GradeComponent', () => {
     id: '1',
     grade: '4',
     name: 'Kolokwium 1',
-    subject: 'Aplikacje internetowe',
     points: '27/40',
     date: new Date('2019-11-07').toString()
   }
