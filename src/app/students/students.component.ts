@@ -113,6 +113,7 @@ export class StudentsComponent implements OnInit {
 
   showSearchForm() {
     this.showAddF = false;
+    this.studentArr = [];
     this.initForm();
   }
 

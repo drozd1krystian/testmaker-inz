@@ -72,7 +72,7 @@ a {
 }
 
 .answers-Nb > div:nth-child(10n) .empty{
-  color: #000;
+  color: #000 !important;
   border-right: 0.4px solid rgb(228, 225, 225);
 }
 

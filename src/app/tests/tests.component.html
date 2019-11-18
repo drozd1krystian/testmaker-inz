@@ -12,7 +12,7 @@
         </div>
       </div>
      
-    <a [routerLink]="['/newtest']" class ="btn btn-green">Dodaj test</a>
+    <a [routerLink]="['/newtest']" class ="btn btn-green add-test">Dodaj test</a>
     <div *ngIf="tests?.length > 0; else noItems">
       <ul class ="collection" *ngFor = "let item of tests | searchFilter: getSearchValue(): 'id'">
         <a [routerLink]="['/test', item.id]" class ="list-item">
