@@ -48,18 +48,16 @@ export class AddTestComponent implements OnInit {
 
         // Split content by questions
         let arrayContent = content.split('#');
-
+        
         // Split question to Question and Answers
         let arrayQuestions = [];
         arrayContent.forEach(el => {
           arrayQuestions.push(el.split('---'));
         });
-
         // First field is test name and category
         let testInfo = '';
         testInfo = arrayQuestions.shift()[0];
         let testInfoArray = testInfo.split(',');
-        
         // Get category (test file have name and date)
         let name = testInfoArray[1].split('\n')[0];
         name = name.trim();
@@ -103,7 +101,7 @@ export class AddTestComponent implements OnInit {
           // Find correct answer
           let correct = tempArray.findIndex(el => el.includes('+'));
           tempArray[correct] = tempArray[correct].replace('+', '');
-
+          if(tempArray.some(el => el == "undefined")) { throw new Error('blad odczytu')}
           // Put to object
           this.question = {
             question: el[0],
@@ -118,6 +116,7 @@ export class AddTestComponent implements OnInit {
         this.testName = '';
         this.testCategory = '';
         this.errorReadingFile = true;
+        this.showTemplate = true;
     }
   } 
   myReader.readAsText(file, 'Windows-1250');

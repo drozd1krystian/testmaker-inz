@@ -81,30 +81,35 @@ export class TestItemService {
       }
     })
   }
-
-  addStudents(studArr, indexesArr, groupName) {
+  async addStudents(studArr, indexesArr, groupName) {
     const docRef = this.firestore.collection('Students').doc(groupName);
     let checker = true;
-    docRef.get().subscribe(doc => {
+    let count = 0;
+    await docRef.get().toPromise().then( async doc => {
       if(doc.exists){  
-        studArr.forEach(  (el,index) => {  
+         await studArr.forEach(async (el,index) => {  
           let StudDoc = docRef.collection('students').doc(indexesArr[index]);
-          StudDoc.get().subscribe(doc => {
-            if(doc.exists){
-              this.indexExist.emit(indexesArr[index]);
-              checker = false;
-              return;
-            }
-            else if(checker) {
-              docRef.collection('students').doc(indexesArr[index]).set(el);
-            }
-          })
+          await StudDoc.get().toPromise().then(doc => {
+            // Loop somehow gets skipped at first
+            count += 1;
+             if (doc.exists) {
+               this.indexExist.emit(indexesArr[index]);
+               checker = false;
+               return;
+             }
+             else if (checker) {
+               docRef.collection('students').doc(indexesArr[index]).set(el);
+             }
+           })
           if(!checker) {
             return;
           }
         })
         if(!checker){
           return;
+        }
+        else if (count > 0 && checker){
+          this.indexExist.emit('true');
         }
       }
       else{
@@ -129,7 +134,7 @@ export class TestItemService {
         else {
           this.indexExist.emit('true');
         }
-      }) 
+      })
       })
     }
     })
