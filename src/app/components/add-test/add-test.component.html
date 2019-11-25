@@ -25,6 +25,12 @@
       </div>
       </div>
     </form>
+    <ng-container *ngIf = "errorReadingFile">
+      <div class="alert" scrollTo>
+        <span class="closebtn" (click) = "showErrorBox()">&times;</span>
+        Błąd oczytu z pliku! Sprawdź dane.
+      </div>
+    </ng-container>
   </div>
 </div>
 
@@ -65,10 +71,5 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf = "errorReadingFile">
-  <div class="alert" scrollTo>
-    <span class="closebtn" (click) = "showErrorBox()">&times;</span>
-    Błąd oczytu z pliku! Sprawdź dane.
-  </div>
-</ng-container>
+
 

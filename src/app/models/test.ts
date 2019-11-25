@@ -1,5 +1,4 @@
 export interface Test {
-  id?: string;
-  name?: string;
-  Category?: string;
+  id: string;
+  Category: string;
 }

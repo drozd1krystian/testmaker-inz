@@ -47,16 +47,14 @@ export class StudentsComponent implements OnInit {
 
         // Find id of student that exists in database
         let id = tempStudArr.indexOf(this.indexExist);
-
+        let howMuchRemove = 0;
         // Remove all values from form before this one student
-        this.addStudentsForm.get('students').setValue( tempStudArr.slice(id-1, tempStudArr.length).join(','));
-        this.addStudentsForm.get('indexes').setValue( tempIdArr.slice(id-1, tempIdArr.length).join(','));
-      } else if(this.indexExist = 'true'){
+        if(tempStudArr.length < 3) {howMuchRemove = id} else { howMuchRemove = id - 1}  
+        this.addStudentsForm.get('students').setValue( tempStudArr.slice(howMuchRemove, tempStudArr.length).join(','));
+        this.addStudentsForm.get('indexes').setValue( tempIdArr.slice(howMuchRemove, tempIdArr.length).join(','));
+      } else if(this.indexExist == 'true'){
         this.showAddF = false;
         this.addedStudents = true;
-      }
-      else{
-        this.showAddF = false;
       }
     });
   }
@@ -128,7 +126,7 @@ export class StudentsComponent implements OnInit {
     return this.addStudentsForm.get('groupName').value;
   }
 
-  addStudents(){
+   addStudents(){
     if(this.students.length > 0 && this.indexes.length > 0) {
       let studFormArr = this.students.split(',');
       let indexesArr = this.indexes.split(',');
@@ -158,7 +156,7 @@ export class StudentsComponent implements OnInit {
         if(!checker){ return;}
         this.testService.addStudents(tempStudArr, indexesArr, groupName);
         }
-    }  
+    }
   }
 
   indexExistError(){

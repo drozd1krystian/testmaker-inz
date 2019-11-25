@@ -20,7 +20,8 @@ import { AddQuestionComponent } from 'src/app/components/add-question/add-questi
 describe('TestComponent', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
-
+  let questions: Question[] = [];
+  let student: Student;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ 
@@ -47,6 +48,29 @@ describe('TestComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
+    questions = [
+      {
+        question: 'Ile to 2+2',
+        answers: [
+          'A. 2', 'B. 4', 'C. 3'
+        ],
+        correct: 'B.',
+        date: new Date()
+      },
+      {
+        question: 'Ile to 2+3',
+        answers: [
+          'A. 2', 'B. 4', 'C. 5'
+        ],
+        correct: 'C.',
+        date: new Date()
+      }
+    ];
+    student = {
+      index: '100',
+      name: 'Jan',
+      surname: 'Kowalski' 
+    }
   });
 
 
@@ -91,15 +115,18 @@ describe('TestComponent', () => {
         answers: [
           'C.2', 'C.4', 'B.3'
         ],
-        correct: 'B.'
+        correct: 'B.',
+        date: new Date()
       }
     ];
+
     let correctArr: Question[] = [{
       question: 'Ile to 2+2',
       answers: [
         'A. 2', 'B. 4', 'C. 3'
       ],
-      correct: 'B.'
+      correct: 'B.',
+      date: new Date()
     }];
 
     component.changeAnswerTags(array);
@@ -111,28 +138,7 @@ describe('TestComponent', () => {
     let component = fixture.componentInstance;
     let groupName = '2019-js-lab3'
     let testName = 'KOLOKWIUM 1'
-    let questions: Question[] = [
-      {
-        question: 'Ile to 2+2',
-        answers: [
-          'A. 2', 'B. 4', 'C. 3'
-        ],
-        correct: 'B.'
-      },
-      {
-        question: 'Ile to 2+3',
-        answers: [
-          'A. 2', 'B. 4', 'C. 5'
-        ],
-        correct: 'C.'
-      }
-    ];
 
-    let student: Student = {
-      index: '100',
-      name: 'Jan',
-      surname: 'Kowalski' 
-    } 
     component.doc_id = testName;
     component.groupForm.value.search = groupName;
     let encryptedString = component.makeQR(student, questions);
@@ -145,26 +151,8 @@ describe('TestComponent', () => {
 
   it('#makeAnswerKey() should make key from questions array eg. AABDC', () => {
     let component = fixture.componentInstance;
-    let questions: Question[] = [
-      {
-        question: 'Ile to 2+2',
-        answers: [
-          'A. 2', 'B. 4', 'C. 3'
-        ],
-        correct: 'B.'
-      },
-      {
-        question: 'Ile to 2+3',
-        answers: [
-          'A. 2', 'B. 4', 'C. 5'
-        ],
-        correct: 'C.'
-      }
-    ];
-
     let key = component.makeAnswersKey(questions);
-    expect(key).toBe('BC', 
-      'Should match BC');
+    expect(key).toBe('BC', 'Should match BC');
   });
 
   it('#getSearchValue() should get value from form', () => {
