@@ -83,7 +83,7 @@ export class AddQuestionComponent implements OnInit {
       let goodCorrect = trimArray.some(el => el.includes(this.correct.value));
 
       if(goodCorrect) {
-        const question = {
+        const question: Question = {
           question: this.question.value,
           answers: answersArray,
           correct: this.correct.value,
