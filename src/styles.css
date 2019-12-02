@@ -16,6 +16,10 @@
   src: url("/assets/fonts/Arial/Arial.ttf") format("truetype");
 }
 
+html {
+  color: rgba(0,0,0,1) !important;
+}
+
 :root {
   --primary-color : #26a69a;
   --primary-hover : #2ec9b9;
