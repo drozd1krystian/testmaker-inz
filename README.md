@@ -30,15 +30,6 @@ Project made as a last my engineer project to summarise my education. It it desi
 ## Screenshots 📺
 
 
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/26926726/82443184-5a159f00-9aa1-11ea-9a95-784298710955.PNG" alt="login">
-</p>
-
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/26926726/82443192-5e41bc80-9aa1-11ea-83bd-4b2e4dc8c810.PNG" alt="journal and alerts">
-</p>
-
-
 
 ## License 🔱
 
