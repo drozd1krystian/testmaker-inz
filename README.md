@@ -11,7 +11,7 @@ Project made as a last my engineer project to summarise my education. It is desi
 | Angular                         |    |
 | Jasmine                        |  Testing framework  |
 | Firestore                           | Database   |
-
+| Materialize                           | CSS Framework   |
 ## Screenshots
 <p align="center">
     <img src="https://user-images.githubusercontent.com/37024620/83039592-a8e1ac80-a03e-11ea-9ff8-8e4b4e7af034.png" alt="test">
