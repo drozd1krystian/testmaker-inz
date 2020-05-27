@@ -2,7 +2,7 @@
 
 
 ## Project Overview
-Project made as a last my engineer project to summarise my education. It it designed for teachers use to make tests with randomised question and answers for each student in selected class. The asnwers key is then encrypted in QR code on top of the test. This app is part of a system where the second piece was made by my friend <a href="https://github.com/Vethavear">Adrian Bury</a>. His part is designed for reading the answer sheet and calculating points to grade the student.
+Project made as a last my engineer project to summarise my education. It is designed for teachers use to make tests with randomised question and answers for each student in selected class. The asnwers key is then encrypted in QR code on top of the test. This app is part of a system where the second piece was made by my friend <a href="https://github.com/Vethavear">Adrian Bury</a>. His part is designed for reading the answer sheet and calculating points to grade the student.
 
 ## Tech/framework used 🔧
 
