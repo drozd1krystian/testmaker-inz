@@ -1,19 +1,4 @@
-
-<h1 align="center">
-
-<br>
-
-<p align="center">
-<img src="/dist/favicon.ico"  alt="Logo">
-</p>
-
-<br>
-
-<br>
-
-</h1>
-
-<h4 align="center">Web application for creating tests with an encrypted answer key in QR code</h4>
+<h1 align="center">Web application for creating tests with an encrypted answer key in QR code</h1>
 
 
 ## Project Overview
