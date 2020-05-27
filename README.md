@@ -8,14 +8,23 @@ Project made as a last my engineer project to summarise my education. It it desi
 
 | Tech                                                    | Description                              |
 | ------------------------------------------------------- | ---------------------------------------- |
-| HTML CSS & JavaScript                         | Frontend   |
-| Firebase                        | Auth   |
+| Angular                         |    |
+| Jasmine                        |  Testing framework  |
 | Firestore                           | Database   |
 
-## Screenshots 📺
+## Screenshots
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/37024620/83039592-a8e1ac80-a03e-11ea-9ff8-8e4b4e7af034.png" alt="test">
+</p>
 
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/37024620/83039773-d62e5a80-a03e-11ea-8c45-4b751a9c36b9.png" alt="">
+</p>
 
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/37024620/83039787-d9294b00-a03e-11ea-915b-c6c8ce1a483f.png" alt="">
+</p>
 
-## License 🔱
+## License
 
 Rights belong to University of Rzeszow.
